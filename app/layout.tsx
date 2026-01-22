@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import {  Albert_Sans } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/app/_components/Navbar";
+import Footer from "@/app/_components/Footer";
 
 
 
@@ -22,9 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${albertSans.variable} antialiased`}
+        className={`${albertSans.variable} font-albert antialiased bg-[#150800] py-16`}
       >
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
