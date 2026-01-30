@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${albertSans.variable} font-albert antialiased bg-[#150800] py-16`}
+        className={`${albertSans.variable} font-albert antialiased bg-[#150800] pb-16`}
       >
         <Navbar />
         {children}
