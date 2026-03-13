@@ -1,40 +1,33 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import DesktopLogo from '@/app/_assets/SVGs/desktop-logo.svg'
+import React from "react";
+import Link from "next/link";
 
-const Footer = () => {
-    const footerItems = [
-        {
-          label: 'Home',
-          href: '/',
-        },
-        {
-          label: 'About',
-          href: '/about',
-        },
-        {
-          label: 'Speaking',
-          href: '/speaking',
-        },
-        {
-          label: 'Gallery',
-          href: '/about#gallery',
-        },
-        
-      ]
+export default function Footer() {
+  const footerItems = [
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Speaking", href: "/contact" },
+    { label: "Gallery", href: "/gallery" },
+  ];
+
   return (
-    <footer className='flex items-center justify-between px-4 sm:px-10 md:px-14 lg:px-20'>
-      <DesktopLogo className="w-40" />
-      <ul className="hidden md:flex items-center gap-6 text-white">
-        {footerItems.map((item) => (
-          <li key={item.href} className='text-lg'>
-            <Link href={item.href}>{item.label}</Link>
-          </li>
-        ))}
-      </ul>
+    <footer className="bg-primary-500 py-12 px-6 md:px-12 lg:px-20 border-t border-tertiary-900/30">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-center items-center">
+        {/* Navigation Links */}
+        <ul className="flex flex-wrap justify-center gap-8 md:gap-12 text-tertiary-50">
+          {footerItems.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className="text-sm font-medium hover:text-white transition-colors"
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </footer>
-  )
+  );
 }
-
-export default Footer

@@ -3,11 +3,46 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
 @theme inline {
+  /* CUSTOM COLORS */
+  /* PRIMARY COLORS */
+  --color-primary-50: #d0cecc;
+  --color-primary-100: #b1adaa;
+  --color-primary-200: #8a8380;
+  --color-primary-300: #635a55;
+  --color-primary-400: #3c312b;
+  --color-primary-500: #150800;
+  --color-primary-600: #120700;
+  --color-primary-700: #0e0500;
+  --color-primary-800: #0b0400;
+  --color-primary-900: #070300;
+
+  /* SECONDARY COLORS */
+  --color-secondary-50: #d8d5d5;
+  --color-secondary-100: #bfb8ba;
+  --color-secondary-200: #9e9597;
+  --color-secondary-300: #7e7274;
+  --color-secondary-400: #5e4e52;
+  --color-secondary-500: #3e2b2f;
+  --color-secondary-600: #342427;
+  --color-secondary-700: #291d1f;
+  --color-secondary-800: #1f1618;
+  --color-secondary-900: #150e10;
+
+  /* TERTIARY COLORS */
+  --color-tertiary-50: #faf5f1;
+  --color-tertiary-100: #f6eee7;
+  --color-tertiary-200: #f2e5db;
+  --color-tertiary-300: #eedcd0;
+  --color-tertiary-400: #e9d4c4;
+  --color-tertiary-500: #e5cbb8;
+  --color-tertiary-600: #bfa999;
+  --color-tertiary-700: #99877b;
+  --color-tertiary-800: #73665c;
+  --color-tertiary-900: #4c443d;
+
   /* CUSTOM FONT */
   --font-albert: var(--font-albert-sans);
-  --color-primary-500: #e8e7fe;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -119,13 +154,7 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  .section-padding{
-    @apply px-5 sm:px-10 md:px-16 lg:px-20 xl:px-24
+  .section-padding-x {
+    @apply px-4 sm:px-10 md:px-16 lg:px-20;
   }
 }
