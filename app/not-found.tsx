@@ -4,7 +4,7 @@ import { ROUTES } from "@/lib/constant";
 
 export default function NotFound() {
   return (
-    <main className="bg-primary-500 flex flex-col items-center justify-center pt-32 px-6">
+    <div className="bg-primary-500 flex flex-col items-center justify-center pt-32 px-6 min-h-[calc(100vh-4rem)]">
       <div className="text-center max-w-2xl mx-auto border border-tertiary-800 p-12 md:p-20 bg-[#1A0E08]/50 shadow-2xl">
         <h1 className="text-8xl md:text-9xl font-bold font-albert text-white opacity-20 mb-4 select-none">
           404
@@ -22,6 +22,6 @@ export default function NotFound() {
           </Button>
         </Link>
       </div>
-    </main>
+    </div>
   );
 }

@@ -4,13 +4,12 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import NewsletterCTA from "@/app/_components/NewsletterCTA";
 import placeholderImage from "@/app/_assets/images/placeholder-image.jpg";
 import { Phone, Mail, Globe } from "lucide-react";
 
 export default function Contact() {
   return (
-    <main className="bg-primary-500 pt-32 overflow-hidden">
+    <>
       {/* Header Section */}
       <section className="px-6 md:px-12 lg:px-20 max-w-4xl mx-auto text-center mb-16">
         <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold font-albert text-white mb-6">
@@ -241,8 +240,6 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Global Newsletter CTA */}
-      <NewsletterCTA />
-    </main>
+    </>
   );
 }

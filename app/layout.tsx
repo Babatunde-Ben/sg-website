@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Albert_Sans } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/app/_components/Navbar";
-import Footer from "@/app/_components/Footer";
+import Navbar from "@/app/_components/shared/Navbar";
+import Footer from "@/app/_components/shared/Footer";
 
 const albertSans = Albert_Sans({
   variable: "--font-albert-sans",
@@ -26,7 +26,9 @@ export default function RootLayout({
         className={`${albertSans.variable} font-albert antialiased bg-primary-500 text-tertiary-50 flex flex-col min-h-screen`}
       >
         <Navbar />
-        <div className="flex-1">{children}</div>
+        <main className="flex-1 overflow-hidden bg-primary-500">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

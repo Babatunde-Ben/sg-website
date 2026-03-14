@@ -1,14 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import NewsletterCTA from "@/app/_components/NewsletterCTA";
 import placeholderImage from "@/app/_assets/images/placeholder-image.jpg";
 import { CheckCircle } from "lucide-react";
 import { ROUTES } from "@/lib/constant";
 
 export default function About() {
   return (
-    <main className="bg-primary-500 pt-24 overflow-hidden">
+    <>
       {/* Hero / Notebook Section */}
       <section className="py-16 md:py-24 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto flex justify-center bg-primary-500">
         <div className="w-full max-w-6xl aspect-[4/3] md:aspect-auto md:min-h-[700px] bg-[#EBE9E8] rounded-xl shadow-2xl flex flex-col md:flex-row relative overflow-visible border-l-[12px] border-l-[#261A14]">
@@ -404,8 +403,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Global Newsletter CTA */}
-      <NewsletterCTA />
-    </main>
+    </>
   );
 }
