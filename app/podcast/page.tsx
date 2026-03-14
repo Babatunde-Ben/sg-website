@@ -4,13 +4,12 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import NewsletterCTA from "@/app/_components/NewsletterCTA";
 import placeholderImage from "@/app/_assets/images/placeholder-image.jpg";
 import { CheckCircle, Music } from "lucide-react";
 
 export default function Podcast() {
   return (
-    <main className="bg-primary-500 pt-32 overflow-hidden">
+    <>
       {/* Hero Scattered Images Section */}
       <section className="px-6 md:px-12 lg:px-20 max-w-6xl mx-auto mb-20 md:mb-32 relative h-[40vh] md:h-[65vh] flex items-center justify-center">
         <div className="relative w-full max-w-4xl aspect-video md:aspect-[21/9]">
@@ -379,8 +378,6 @@ export default function Podcast() {
         </div>
       </section>
 
-      {/* Global Newsletter CTA */}
-      <NewsletterCTA />
-    </main>
+    </>
   );
 }
