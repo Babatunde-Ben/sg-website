@@ -13,7 +13,10 @@ export default function FeedbackCard({
   image,
 }: FeedbackCardProps) {
   return (
-    <div className="bg-primary-400 px-6 py-14 relative flex flex-col justify-between min-h-[320px]">
+    <div
+      style={{ clipPath: "polygon(0 0, 100% 0, 100% 92%, 10% 92%, 0 100%)" }}
+      className="bg-primary-400 px-6 pt-14 pb-20 relative flex flex-col justify-between min-h-[320px]"
+    >
       <p className="text-tertiary-700 md:text-lg mb-10 relative z-10 font-light">
         {quote}
       </p>

@@ -20,9 +20,9 @@ export default function DepthSection() {
           {depthSectionItems.map((item, index) => (
             <div
               key={index}
-              className="border border-primary-400 p-10 md:p-12 flex flex-col items-center justify-center min-h-56 transition-colors hover:bg-primary-700/20"
+              className="border border-primary-400 px-10 py-18 flex flex-col items-center justify-center min-h-56 transition-colors hover:bg-primary-700/20"
             >
-              <p className="text-tertiary-50 text-center md:text-lg lg:text-xl">
+              <p className="text-tertiary-50 opacity-40 text-center md:text-lg lg:text-xl">
                 {item}
               </p>
             </div>
