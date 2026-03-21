@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Profile1 from "@/app/_assets/images/profile-1.png";
 import Profile2 from "@/app/_assets/images/profile-2.png";
 import QuoteIcon from "@/app/_assets/SVGs/quote.svg";
@@ -8,15 +7,14 @@ import FeedbackCard from "@/app/_components/shared/FeedbackCard";
 export default function TestimonialsSection() {
   const testimonials = [
     {
-      quote:
-        "I have watched our church go completely quiet when she speaks —because of how safe she makes people feel. Even when I am supposed to be elsewhere, I genuinely want to stay in the room when she is speaking.",
+      quote: "Love your style Stephanie George, you lead with power and spark.",
       author: "Pastor T.",
       location: "Lagos",
       image: Profile1,
     },
     {
       quote:
-        "After her session, our managers finally had language for feedback conversations they had been avoiding. Two weeks later, they were still using her exact phrases in team meetings.",
+        "In a functioning state, she’ll be my top pick for a Ministerial position. Won’t be surprised if this manifested someday soon.",
       author: "Mensah, Hr Lead",
       location: "Lagos",
       image: Profile2,

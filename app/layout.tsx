@@ -26,7 +26,7 @@ export default function RootLayout({
         className={`${albertSans.variable} font-albert antialiased bg-primary-500 text-tertiary-50 flex flex-col min-h-screen`}
       >
         <Navbar />
-        <main className="flex-1 overflow-hidden bg-primary-500">
+        <main className="flex-1 overflow-hidden 2xl:max-w-[1440px] 2xl:mx-auto">
           {children}
         </main>
         <Footer />

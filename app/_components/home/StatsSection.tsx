@@ -14,7 +14,7 @@ export default function StatsSection() {
     },
   ];
   return (
-    <section className="py-40 section-padding-x bg-primary-500">
+    <section className="py-40 section-padding-x">
       <div className="flex flex-col items-center justify-between gap-12 text-center md:gap-28 md:flex-row md:justify-center">
         {stats.map((stat, index) => (
           <div key={index}>
