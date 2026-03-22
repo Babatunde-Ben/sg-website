@@ -2,7 +2,6 @@ import Image from "next/image";
 import GalleryImage1 from "@/app/_assets/images/portrait-4.jpg";
 import GalleryImage2 from "@/app/_assets/images/portrait-1.jpg";
 import WithLoveWriting from "@/app/_assets/SVGs/with-love.svg";
-import { Separator } from "@/components/ui/separator";
 
 export default function GallerySneakPeek() {
   return (
@@ -28,7 +27,6 @@ export default function GallerySneakPeek() {
           <div className="size-full absolute  bg-linear-to-b from-primary-500/40 from-50% to-primary-500" />
         </div>
       </div>
-      <Separator className="mt-48 section-padding-x" />
     </section>
   );
 }
