@@ -31,18 +31,15 @@ export default function StoryFormSection() {
             </Label>
           </Field>
 
-          <Field>
+          <Field className="mb-16">
             <Textarea id="story" placeholder="" />
             <Label floating htmlFor="story">
               Story
             </Label>
           </Field>
 
-          <div className="pt-8 text-center">
-            <Button
-              type="submit"
-              className="rounded-full bg-tertiary-200 text-primary-500 hover:bg-white font-medium px-12 py-7 text-lg w-fit transition-transform hover:scale-[1.02]"
-            >
+          <div className="text-center">
+            <Button type="submit" className="w-full sm:max-w-60 sm:mx-auto">
               Submit Your Story
             </Button>
           </div>
