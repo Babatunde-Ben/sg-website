@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ROUTES } from "@/lib/constant";
 import { Label } from "@/components/ui/label";
+import { Field } from "@/components/ui/field";
 
 const footerNavItems = [
   { label: "Home", href: ROUTES.HOME },
@@ -30,10 +31,12 @@ export default function Footer() {
 
       <section className="grid grid-cols-1 gap-12 lg:grid-cols-[1.5fr_1fr]">
         <form className="" onSubmit={(e) => e.preventDefault()}>
-          <div className="mb-12">
-            <Label htmlFor="footer-email">Email Address</Label>
+          <Field className="mb-12">
             <Input id="footer-email" type="email" placeholder="" />
-          </div>
+            <Label floating htmlFor="footer-email">
+              Email Address
+            </Label>
+          </Field>
           <Button type="submit" className="w-full">
             Send me a note
           </Button>

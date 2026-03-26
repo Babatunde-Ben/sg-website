@@ -20,13 +20,13 @@ export default function WhatSetsMeApartSection() {
         </p>
 
         <div className="flex flex-col lg:flex-row justify-between gap-8 px-8 py-12 md:px-10 border border-primary-400">
-          {whatSetsMeApartItems.map((item, index) => (
+          {whatSetsMeApartItems.map((text, index) => (
             <div
               key={index}
               className="flex items-center gap-4 w-full text-tertiary-600 lg:w-1/3 lg:items-start "
             >
               <CheckMarkCircle01 className=" shrink-0 size-6 lg:size-8" />
-              <p className="text-lg">{item}</p>
+              <p className="text-lg">{text}</p>
             </div>
           ))}
         </div>

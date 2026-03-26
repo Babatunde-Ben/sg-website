@@ -1,72 +1,46 @@
-import Image from "next/image";
-import type { ReactNode } from "react";
-import { Music } from "lucide-react";
-import placeholderImage from "@/app/_assets/images/placeholder-image.jpg";
+import MusicNote from "@/app/_assets/SVGs/music-note.svg";
+import FeedbackCard from "@/app/_components/shared/FeedbackCard";
+import Profile1 from "@/app/_assets/images/profile-1.png";
+import Profile2 from "@/app/_assets/images/profile-2.png";
 
-const testimonials: {
-  cardBg: string;
-  triangleClassName: string;
-  quote: string;
-  attribution: ReactNode;
-}[] = [
+const testimonials = [
   {
-    cardBg: "bg-[#3A2D28]",
-    triangleClassName:
-      "absolute -bottom-6 left-12 w-0 h-0 border-l-[24px] border-l-transparent border-t-[32px] border-t-[#3A2D28] border-r-[24px] border-r-transparent",
-    quote:
-      "I started listening while I was cooking dinner, and I ended up sitting on the kitchen floor with my headphones in, just thinking. It feels like someone finally put words to things I've been feeling for years.",
-    attribution: (
-      <>
-        <span className="font-bold">Listener,</span> Vancouver
-      </>
-    ),
+    quote: "Love your style Stephanie George, you lead with power and spark",
+    author: "Melody Biringer",
+    location: "Founder at Women in Tech Regatta",
+    image: Profile1,
   },
   {
-    cardBg: "bg-[#2A201C]",
-    triangleClassName:
-      "absolute -bottom-6 left-12 w-0 h-0 border-l-[24px] border-l-transparent border-t-[32px] border-t-[#2A201C] border-r-[24px] border-r-transparent",
     quote:
-      "This is the only podcast I don't listen to on 2x speed. Her voice is so beautiful and the insights are so rich, I want to catch every single word.",
-    attribution: (
-      <>
-        <span className="font-bold">Listener,</span> Lagos.
-      </>
-    ),
+      "In a functioning state, she’ll be my top pick for a Ministerial position. Won’t be surprised if this manifested someday soon.",
+    author: "Tammy Tolofari",
+    location: "Lagos",
+    image: Profile2,
   },
 ];
 
 export default function FromTheListenersSection() {
   return (
-    <section className="px-6 md:px-12 lg:px-20 max-w-6xl mx-auto mb-32 pb-6">
-      <div className="flex flex-col md:flex-row gap-12 lg:gap-16 items-start">
-        <div className="md:w-[35%] flex flex-col justify-start pt-4">
-          <Music className="text-[#362722] w-40 h-40 mb-10" strokeWidth={1} />
-          <h2 className="text-4xl md:text-5xl lg:text-[56px] leading-[1.1] font-bold font-albert text-white">
-            From the <br className="hidden md:block" /> Listeners
-          </h2>
+    <section className="section-padding-x mb-24 md:mb-32">
+      <div className="flex flex-col xl:flex-row gap-8 xl:gap-14 ">
+        <div className="w-full xl:w-1/3 flex flex-col text-center xl:text-left xl:px-10">
+          <MusicNote className="w-40 text-primary-400 mb-2 xl:inline-block hidden" />
+          <div>
+            <h3 className="text-3xl font-bold text-tertiary-50 sm:text-4xl md:text-5xl ">
+              From the Listeners
+            </h3>
+          </div>
         </div>
-        <div className="md:w-[65%] grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-          {testimonials.map((t) => (
-            <div
-              key={t.quote}
-              className={`${t.cardBg} p-10 rounded-sm relative flex flex-col justify-between min-h-[320px]`}
-            >
-              <div className={t.triangleClassName} />
-              <p className="text-tertiary-300 text-lg leading-relaxed mb-10 font-light">
-                {t.quote}
-              </p>
-              <div className="flex items-center gap-5 mt-auto">
-                <div className="w-14 h-14 rounded-full relative overflow-hidden bg-white/10 shrink-0">
-                  <Image
-                    src={placeholderImage}
-                    alt="Listener"
-                    fill
-                    className="object-cover filter contrast-125"
-                  />
-                </div>
-                <p className="text-white text-lg">{t.attribution}</p>
-              </div>
-            </div>
+
+        <div className="w-full xl:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6 xl:gap-4">
+          {testimonials.map((testimonial, index) => (
+            <FeedbackCard
+              key={index}
+              author={testimonial.author}
+              location={testimonial.location}
+              image={testimonial.image}
+              quote={testimonial.quote}
+            />
           ))}
         </div>
       </div>
