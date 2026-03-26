@@ -27,6 +27,10 @@ export default function Navbar() {
 
   return (
     <nav className="absolute top-0 left-0 w-full z-50 py-8 section-padding-x flex items-center justify-between text-tertiary-50 bg-transparent">
+      <div
+        style={{ boxShadow: "#150800ee 5px 0px 40px 50px" }}
+        className="hidden lg:block absolute  w-full z-[-1] left-0 top-1/2 -translate-y-1/2"
+      />
       {/* Logo */}
       <Link href={ROUTES.HOME} aria-label="Home">
         <DesktopLogo className="w-30 lg:w-38 hover:opacity-85 transition-opacity duration-200" />

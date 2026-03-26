@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ROUTES } from "@/lib/constant";
 import { Label } from "@/components/ui/label";
+import { Field } from "@/components/ui/field";
 
 const footerNavItems = [
   { label: "Home", href: ROUTES.HOME },
@@ -17,7 +18,7 @@ const footerNavItems = [
 export default function Footer() {
   return (
     <footer className="pb-12 section-padding-x xl:px-28">
-      <div className="mx-auto bg-primary-400/30 px-6 py-12 text-center mb-16 md:px-14 lg:px-16">
+      <div className="mx-auto bg-white/4 px-6 py-12 text-center mb-16 md:px-14 lg:px-16">
         <h3 className="text-2xl md:text-3xl font-bold text-tertiary-400 mb-6 md:mb-10 lg:text-4xl">
           Words for the Journey
         </h3>
@@ -30,10 +31,12 @@ export default function Footer() {
 
       <section className="grid grid-cols-1 gap-12 lg:grid-cols-[1.5fr_1fr]">
         <form className="" onSubmit={(e) => e.preventDefault()}>
-          <div className="mb-12">
-            <Label htmlFor="footer-email">Email Address</Label>
+          <Field className="mb-12">
             <Input id="footer-email" type="email" placeholder="" />
-          </div>
+            <Label floating htmlFor="footer-email">
+              Email Address
+            </Label>
+          </Field>
           <Button type="submit" className="w-full">
             Send me a note
           </Button>
