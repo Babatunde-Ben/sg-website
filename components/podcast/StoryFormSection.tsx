@@ -21,7 +21,7 @@ export default function StoryFormSection() {
         </p>
 
         <form
-          className="space-y-12 text-left max-w-3xl mx-auto"
+          className="space-y-12 text-left mx-auto"
           onSubmit={(e) => e.preventDefault()}
         >
           <Field>
