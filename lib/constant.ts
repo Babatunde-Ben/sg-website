@@ -3,5 +3,5 @@ export const ROUTES = {
   ABOUT: "/about",
   GALLERY: "/my-gallery",
   PODCAST: "/podcast",
-  CONTACT: "/get-in-touch",
+  CONTACT: "/contact",
 };

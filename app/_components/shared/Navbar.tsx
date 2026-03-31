@@ -93,7 +93,11 @@ export default function Navbar() {
               </ul>
 
               <Link href={ROUTES.CONTACT} className="w-full max-w-80">
-                <Button variant="outline" className="w-full">
+                <Button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  variant="outline"
+                  className="w-full"
+                >
                   Get In Touch
                 </Button>
               </Link>

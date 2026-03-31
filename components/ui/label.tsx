@@ -7,9 +7,16 @@ import { cn } from "@/lib/utils";
 
 type LabelProps = React.ComponentProps<typeof LabelPrimitive.Root> & {
   floating?: boolean;
+  required?: boolean;
 };
 
-function Label({ className, floating, ...props }: LabelProps) {
+function Label({
+  className,
+  floating,
+  children,
+  required,
+  ...props
+}: LabelProps) {
   return (
     <LabelPrimitive.Root
       data-slot="label"
@@ -20,7 +27,14 @@ function Label({ className, floating, ...props }: LabelProps) {
         className,
       )}
       {...props}
-    />
+    >
+      {children}
+      {required && (
+        <span aria-hidden="true" className="text-tertiary-800">
+          *
+        </span>
+      )}
+    </LabelPrimitive.Root>
   );
 }
 
