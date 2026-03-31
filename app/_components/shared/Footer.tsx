@@ -34,7 +34,7 @@ export default function Footer() {
   function onSubmit(_values: FooterFormValues) {}
 
   return (
-    <footer className="pb-12 section-padding-x xl:px-28">
+    <footer className="pb-12 section-padding-x xl:px-28 2xl:max-w-[1920px] 2xl:mx-auto">
       <div className="mx-auto bg-white/4 px-6 py-12 text-center mb-16 md:px-14 lg:px-16">
         <h3 className="text-2xl md:text-3xl font-bold text-tertiary-400 mb-6 md:mb-10 lg:text-4xl">
           Words for the Journey
@@ -64,7 +64,9 @@ export default function Footer() {
                 <Label floating required htmlFor="footer-email">
                   Email Address
                 </Label>
-                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
               </Field>
             )}
           />
