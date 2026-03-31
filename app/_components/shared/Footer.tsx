@@ -1,12 +1,20 @@
 "use client";
 
-import React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
+import { z } from "zod";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { ROUTES } from "@/lib/constant";
 import { Label } from "@/components/ui/label";
-import { Field } from "@/components/ui/field";
+
+const footerFormSchema = z.object({
+  email: z.email("Enter a valid email address."),
+});
+
+type FooterFormValues = z.infer<typeof footerFormSchema>;
 
 const footerNavItems = [
   { label: "Home", href: ROUTES.HOME },
@@ -16,6 +24,15 @@ const footerNavItems = [
 ];
 
 export default function Footer() {
+  const form = useForm<FooterFormValues>({
+    resolver: zodResolver(footerFormSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
+
+  function onSubmit(_values: FooterFormValues) {}
+
   return (
     <footer className="pb-12 section-padding-x xl:px-28">
       <div className="mx-auto bg-white/4 px-6 py-12 text-center mb-16 md:px-14 lg:px-16">
@@ -30,13 +47,27 @@ export default function Footer() {
       </div>
 
       <section className="grid grid-cols-1 gap-12 lg:grid-cols-[1.5fr_1fr]">
-        <form className="" onSubmit={(e) => e.preventDefault()}>
-          <Field className="mb-12">
-            <Input id="footer-email" type="email" placeholder="" />
-            <Label floating htmlFor="footer-email">
-              Email Address
-            </Label>
-          </Field>
+        <form className="" onSubmit={form.handleSubmit(onSubmit)} noValidate>
+          <Controller
+            name="email"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field className="mb-12" data-invalid={fieldState.invalid}>
+                <Input
+                  {...field}
+                  id="footer-email"
+                  type="email"
+                  placeholder=""
+                  autoComplete="email"
+                  aria-invalid={fieldState.invalid}
+                />
+                <Label floating required htmlFor="footer-email">
+                  Email Address
+                </Label>
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              </Field>
+            )}
+          />
           <Button type="submit" className="w-full">
             Send me a note
           </Button>

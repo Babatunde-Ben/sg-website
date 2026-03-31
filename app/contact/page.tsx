@@ -1,237 +1,245 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
+import { z } from "zod";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import placeholderImage from "@/app/_assets/images/placeholder-image.jpg";
-import { Phone, Mail, Globe } from "lucide-react";
+import SpeakingImage from "@/app/_assets/images/portrait-7.jpg";
+import Phone from "@/app/_assets/SVGs/call-02.svg";
+import Mail from "@/app/_assets/SVGs/mail-01.svg";
+import Globe from "@/app/_assets/SVGs/earth.svg";
+import Link from "next/link";
+import LinkedIn from "@/app/_assets/SVGs/linkedin.svg";
+import Instagram from "@/app/_assets/SVGs/instagram.svg";
+import X from "@/app/_assets/SVGs/x.svg";
+
+const contactSchema = z.object({
+  name: z.string().min(1, "Name is required."),
+  email: z.email("Enter a valid email address."),
+  phone: z.string().optional(),
+  organization: z.string().optional(),
+  message: z.string().min(10, "Message should be at least 10 characters."),
+});
+
+type ContactFormValues = z.infer<typeof contactSchema>;
 
 export default function Contact() {
+  const socialLinks = [
+    {
+      href: "https://x.com",
+      icon: X,
+      label: "X (formerly Twitter)",
+    },
+    {
+      href: "https://www.instagram.com",
+      icon: Instagram,
+      label: "Instagram",
+    },
+    {
+      href: "https://www.linkedin.com",
+      icon: LinkedIn,
+      label: "LinkedIn",
+    },
+  ];
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      organization: "",
+      message: "",
+    },
+  });
+
+  function onSubmit(_values: ContactFormValues) {}
+
   return (
     <>
       {/* Header Section */}
-      <section className="px-6 md:px-12 lg:px-20 max-w-4xl mx-auto text-center mb-16">
-        <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold font-albert text-white mb-6">
+      <section className="section-padding-x mt-36 mb-16 md:mb-20 lg:mt-40 lg:mb-22">
+        <h1 className="text-3xl text-center sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-tertiary-50 mb-8">
           Bookings & Collaborations
         </h1>
-        <p className="text-tertiary-500 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed">
+        <p className="text-center text-tertiary-600 mb-12 sm:mb-14 sm:text-lg md:text-xl md:max-w-2xl md:mx-auto md:mb-16 lg:mb-22 ">
           For hosting & speaking engagements, workshops, and thoughtful
           collaborations, I would love to have a conversation with you.
         </p>
-      </section>
-
-      {/* Hero Image Section */}
-      <section className="px-6 md:px-12 lg:px-20 max-w-7xl mx-auto mb-20 md:mb-32">
-        <div className="relative w-full h-[40vh] md:h-[60vh] max-h-[600px] overflow-hidden rounded-sm filter contrast-125 sepia-[0.2]">
+        <div className="relative w-full h-[40vh] md:h-[60vh] max-h-[400px] 1">
           <Image
-            src={placeholderImage}
+            src={SpeakingImage}
             alt="Stephanie speaking at event"
             fill
-            className="object-cover object-top"
+            className="object-cover object-[10%_20%]"
           />
         </div>
       </section>
 
       {/* Contact Content Section */}
-      <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto mb-32">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-8 xl:gap-16 justify-center max-w-6xl mx-auto">
+      <section className="mb-32 section-padding-x">
+        <div className="mb-40 grid grid-cols-1 gap-10 lg:grid-cols-[40%_60%] lg:mb-60">
           {/* Left: Contact Info Snippet */}
-          <div className="w-full lg:w-5/12 border border-tertiary-800/50 p-12 md:p-16 rounded-sm bg-transparent h-fit flex flex-col gap-12">
-            <div>
-              <div className="flex items-center gap-4 text-white mb-2">
-                <Phone
-                  size={22}
-                  className="text-tertiary-200"
-                  strokeWidth={1.5}
-                />
-                <h3 className="font-albert text-xl font-medium tracking-wide">
+          <div className="border border-primary-400 px-20 py-14 space-y-12 md:py-16 lg:space-y-16 lg:py-18 xl:px-32">
+            <div className="flex flex-col items-center lg:items-start">
+              <p className="flex items-center gap-4 text-tertiary-500 mb-4">
+                <Phone className="size-6" />
+                <span className="font-medium sm:text-lg md:text-xl">
                   Phone Number
-                </h3>
-              </div>
-              <p className="text-tertiary-500 ml-[38px] font-light text-lg">
+                </span>
+              </p>
+              <p className="text-primary-300 sm:text-lg md:text-xl">
                 +234 900 234 5678
               </p>
             </div>
 
-            <div>
-              <div className="flex items-center gap-4 text-white mb-2">
-                <Mail
-                  size={22}
-                  className="text-tertiary-200"
-                  strokeWidth={1.5}
-                />
-                <h3 className="font-albert text-xl font-medium tracking-wide">
+            <div className="flex flex-col items-center lg:items-start">
+              <p className="flex items-center gap-4 text-tertiary-500 mb-4">
+                <Mail className="size-6" />
+
+                <span className="font-medium sm:text-lg md:text-xl">
                   Email Address
-                </h3>
-              </div>
-              <p className="text-tertiary-500 ml-[38px] font-light text-lg">
+                </span>
+              </p>
+              <p className="text-primary-300 sm:text-lg md:text-xl">
                 StephGeorge@gmail.com
               </p>
             </div>
 
-            <div>
-              <div className="flex items-center gap-4 text-white mb-4">
-                <Globe
-                  size={22}
-                  className="text-tertiary-200"
-                  strokeWidth={1.5}
-                />
-                <h3 className="font-albert text-xl font-medium tracking-wide">
+            <div className="flex flex-col items-center lg:items-start">
+              <p className="flex items-center gap-4 text-tertiary-500 mb-4">
+                <Globe className="size-6" />
+                <span className="font-medium sm:text-lg md:text-xl">
                   Social Media
-                </h3>
-              </div>
-              <div className="flex items-center gap-3 ml-[38px]">
-                <a
-                  href="#"
-                  className="w-11 h-11 rounded-full bg-[#261A14] flex items-center justify-center text-tertiary-400 hover:bg-tertiary-200 hover:text-primary-500 transition-colors"
-                >
-                  <span className="sr-only">X (formerly Twitter)</span>
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                </span>
+              </p>
+              <div className="flex items-center gap-1.5 ">
+                {socialLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="size-8 rounded-full bg-primary-400 flex items-center justify-center text-tertiary-400 hover:bg-primary-400/70 transition-colors"
                   >
-                    <path d="M4 4l16 16" />
-                    <path d="M4 20L20 4" />
-                  </svg>
-                </a>
-                <a
-                  href="#"
-                  className="w-11 h-11 rounded-full bg-[#261A14] flex items-center justify-center text-tertiary-400 hover:bg-tertiary-200 hover:text-primary-500 transition-colors"
-                >
-                  <span className="sr-only">Instagram</span>
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <rect
-                      x="2"
-                      y="2"
-                      width="20"
-                      height="20"
-                      rx="5"
-                      ry="5"
-                    ></rect>
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                  </svg>
-                </a>
-                <a
-                  href="#"
-                  className="w-11 h-11 rounded-full bg-[#261A14] flex items-center justify-center text-tertiary-400 hover:bg-tertiary-200 hover:text-primary-500 transition-colors"
-                >
-                  <span className="sr-only">LinkedIn</span>
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                    <rect x="2" y="9" width="4" height="12"></rect>
-                    <circle cx="4" cy="4" r="2"></circle>
-                  </svg>
-                </a>
+                    <span className="sr-only">{link.label}</span>
+                    <link.icon className="size-4" />
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
 
           {/* Right: Contact Form */}
-          <div className="w-full lg:w-6/12 bg-[#261A14] p-12 md:p-16 rounded-sm">
-            <form className="space-y-12" onSubmit={(e) => e.preventDefault()}>
-              <div className="space-y-2 relative">
-                <Input
-                  id="name"
-                  placeholder=""
-                  className="bg-transparent border-0 border-b border-tertiary-800 rounded-none px-0 py-6 text-white text-lg focus-visible:ring-0 focus-visible:border-tertiary-200 peer"
-                />
-                <label
-                  htmlFor="name"
-                  className="text-tertiary-400 absolute left-0 top-3 text-lg transition-all peer-focus:-top-4 peer-focus:text-sm peer-focus:text-tertiary-200 peer-[&:not(:placeholder-shown)]:-top-4 peer-[&:not(:placeholder-shown)]:text-sm"
-                >
-                  Name
-                </label>
-              </div>
+          <div className=" bg-white/4 px-8 py-14 sm:px-12 md:px-16 lg:px-20">
+            <form className="space-y-12" onSubmit={form.handleSubmit(onSubmit)} noValidate>
+              <Controller
+                name="name"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <Input
+                      {...field}
+                      id="name"
+                      placeholder=""
+                      autoComplete="name"
+                      aria-invalid={fieldState.invalid}
+                    />
+                    <Label floating required htmlFor="name">
+                      Full Name
+                    </Label>
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
 
-              <div className="space-y-2 relative">
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder=""
-                  className="bg-transparent border-0 border-b border-tertiary-800 rounded-none px-0 py-6 text-white text-lg focus-visible:ring-0 focus-visible:border-tertiary-200 peer"
-                />
-                <label
-                  htmlFor="email"
-                  className="text-tertiary-400 absolute left-0 top-3 text-lg transition-all peer-focus:-top-4 peer-focus:text-sm peer-focus:text-tertiary-200 peer-[&:not(:placeholder-shown)]:-top-4 peer-[&:not(:placeholder-shown)]:text-sm"
-                >
-                  Email Address
-                </label>
-              </div>
+              <Controller
+                name="email"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <Input
+                      {...field}
+                      id="email"
+                      type="email"
+                      placeholder=""
+                      autoComplete="email"
+                      aria-invalid={fieldState.invalid}
+                    />
+                    <Label floating required htmlFor="email">
+                      Email Address
+                    </Label>
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
 
-              <div className="space-y-2 relative">
-                <Input
-                  id="phone"
-                  type="tel"
-                  placeholder=""
-                  className="bg-transparent border-0 border-b border-tertiary-800 rounded-none px-0 py-6 text-white text-lg focus-visible:ring-0 focus-visible:border-tertiary-200 peer"
-                />
-                <label
-                  htmlFor="phone"
-                  className="text-tertiary-400 absolute left-0 top-3 text-lg transition-all peer-focus:-top-4 peer-focus:text-sm peer-focus:text-tertiary-200 peer-[&:not(:placeholder-shown)]:-top-4 peer-[&:not(:placeholder-shown)]:text-sm"
-                >
-                  Phone Number
-                </label>
-              </div>
+              <Controller
+                name="phone"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <Input
+                      {...field}
+                      id="phone"
+                      type="tel"
+                      placeholder=""
+                      autoComplete="tel"
+                      aria-invalid={fieldState.invalid}
+                    />
+                    <Label floating htmlFor="phone">
+                      Phone Number
+                    </Label>
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
 
-              <div className="space-y-2 relative">
-                <Input
-                  id="organization"
-                  placeholder=""
-                  className="bg-transparent border-0 border-b border-tertiary-800 rounded-none px-0 py-6 text-white text-lg focus-visible:ring-0 focus-visible:border-tertiary-200 peer"
-                />
-                <label
-                  htmlFor="organization"
-                  className="text-tertiary-400 absolute left-0 top-3 text-lg transition-all peer-focus:-top-4 peer-focus:text-sm peer-focus:text-tertiary-200 peer-[&:not(:placeholder-shown)]:-top-4 peer-[&:not(:placeholder-shown)]:text-sm"
-                >
-                  Organization
-                </label>
-              </div>
+              <Controller
+                name="organization"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <Input
+                      {...field}
+                      id="organization"
+                      placeholder=""
+                      autoComplete="organization"
+                      aria-invalid={fieldState.invalid}
+                    />
+                    <Label floating htmlFor="organization">
+                      Organization
+                    </Label>
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
 
-              <div className="space-y-2 relative pt-4">
-                <label
-                  htmlFor="message"
-                  className="text-tertiary-400 block mb-2 text-lg"
-                >
-                  Message
-                </label>
-                <Textarea
-                  id="message"
-                  placeholder=""
-                  className="bg-transparent border-0 border-b border-tertiary-800 rounded-none px-0 py-2 text-white text-lg min-h-[60px] resize-none focus-visible:ring-0 focus-visible:border-tertiary-200"
-                />
-              </div>
+              <Controller
+                name="message"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <Textarea
+                      {...field}
+                      id="message"
+                      placeholder=""
+                      aria-invalid={fieldState.invalid}
+                    />
+                    <Label floating required htmlFor="message">
+                      Message
+                    </Label>
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
 
-              <div className="pt-8">
-                <Button
-                  type="submit"
-                  className="w-full rounded-full bg-tertiary-200 text-primary-500 hover:bg-white font-medium py-7 text-lg hover:scale-[1.02] transition-transform"
-                >
+              <div>
+                <Button type="submit" className="w-full">
                   Submit
                 </Button>
               </div>
@@ -239,7 +247,6 @@ export default function Contact() {
           </div>
         </div>
       </section>
-
     </>
   );
 }
