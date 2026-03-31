@@ -1,10 +1,21 @@
 "use client";
 
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import Link from "next/link";
+import { CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { ROUTES } from "@/lib/constant";
@@ -24,6 +35,11 @@ const footerNavItems = [
 ];
 
 export default function Footer() {
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(
+    "Thank you. You are now subscribed.",
+  );
+
   const form = useForm<FooterFormValues>({
     resolver: zodResolver(footerFormSchema),
     defaultValues: {
@@ -31,7 +47,45 @@ export default function Footer() {
     },
   });
 
-  function onSubmit(_values: FooterFormValues) {}
+  async function onSubmit(values: FooterFormValues) {
+    form.clearErrors("email");
+
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: values.email,
+        }),
+      });
+
+      const result = (await response.json().catch(() => null)) as {
+        ok?: boolean;
+        message?: string;
+      } | null;
+
+      if (!response.ok || !result?.ok) {
+        form.setError("email", {
+          type: "manual",
+          message:
+            result?.message ??
+            (response.status === 409
+              ? "This email is already subscribed."
+              : "Something went wrong. Please try again."),
+        });
+        return;
+      }
+
+      setSuccessMessage(result.message ?? "Thank you. You are now subscribed.");
+      setIsSuccessModalOpen(true);
+      form.reset();
+    } catch {
+      form.setError("email", {
+        type: "manual",
+        message: "Network error. Please try again shortly.",
+      });
+    }
+  }
 
   return (
     <footer className="pb-12 section-padding-x xl:px-28 2xl:max-w-[1920px] 2xl:mx-auto">
@@ -70,8 +124,12 @@ export default function Footer() {
               </Field>
             )}
           />
-          <Button type="submit" className="w-full">
-            Send me a note
+          <Button
+            type="submit"
+            className="w-full"
+            loading={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? "Sending..." : "Send me a note"}
           </Button>
         </form>
         <div>
@@ -110,6 +168,26 @@ export default function Footer() {
           ))}
         </ul>
       </section>
+
+      <Dialog open={isSuccessModalOpen} onOpenChange={setIsSuccessModalOpen}>
+        <DialogContent className="px-6 py-8 md:px-8" showCloseButton={false}>
+          <DialogHeader>
+            <CheckCircle2
+              className="size-12 text-tertiary-400 mx-auto mb-2"
+              aria-hidden="true"
+            />
+            <DialogTitle>Subscription successful</DialogTitle>
+            <DialogDescription>{successMessage}</DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="mt-6">
+            <DialogClose asChild>
+              <Button type="button" className="w-full">
+                Close
+              </Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </footer>
   );
 }
