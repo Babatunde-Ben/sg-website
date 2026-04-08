@@ -1,6 +1,9 @@
+"use client";
+
 import Profile1 from "@/app/_assets/images/profile-1.png";
 import Profile2 from "@/app/_assets/images/profile-2.png";
 import FeedbackCard from "@/app/_components/shared/FeedbackCard";
+import { FadeInUp, StaggerContainer, StaggerItem } from "@/components/motion";
 
 const testimonials = [
   {
@@ -11,7 +14,7 @@ const testimonials = [
   },
   {
     quote:
-      "In a functioning state, she’ll be my top pick for a Ministerial position. Won’t be surprised if this manifested someday soon.",
+      "In a functioning state, she'll be my top pick for a Ministerial position. Won't be surprised if this manifested someday soon.",
     author: "Mensah, Hr Lead",
     location: "Lagos",
     image: Profile2,
@@ -28,21 +31,24 @@ const testimonials = [
 export default function FromTheRoomTestimonialsSection() {
   return (
     <section className="section-padding-x my-20 md:my-24 lg:my-32">
-      <h2 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold text-center text-tertiary-50 mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-        From the Room
-      </h2>
+      <FadeInUp>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold text-center text-tertiary-50 mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+          From the Room
+        </h2>
+      </FadeInUp>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {testimonials.map((testimonial, index) => (
-          <FeedbackCard
-            key={index}
-            author={testimonial.author}
-            location={testimonial.location}
-            image={testimonial.image}
-            quote={testimonial.quote}
-          />
+          <StaggerItem key={index}>
+            <FeedbackCard
+              author={testimonial.author}
+              location={testimonial.location}
+              image={testimonial.image}
+              quote={testimonial.quote}
+            />
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerContainer>
     </section>
   );
 }

@@ -1,9 +1,16 @@
+"use client";
+
 import Image from "next/image";
+import { motion, useReducedMotion } from "motion/react";
 import placeholderImage from "@/app/_assets/images/placeholder-image.jpg";
 import PinkHeart from "@/app/_assets/SVGs/pink-heart.svg";
 import DragonFly from "@/app/_assets/SVGs/dragon-fly.svg";
+import { FadeInUp } from "@/components/motion";
+import { transitions, viewportOnce } from "@/lib/motion";
 
 export default function Gallery() {
+  const shouldReduceMotion = useReducedMotion();
+
   type CollageSlot = {
     rotate: string;
     transform: string;
@@ -93,13 +100,17 @@ export default function Gallery() {
   return (
     <>
       <section className="section-padding-x mt-36 mb-16 md:mb-20 lg:mt-40 lg:mb-22">
-        <h1 className="text-3xl text-center sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-tertiary-50 mb-8">
-          Moments That Matter
-        </h1>
-        <p className="text-center text-tertiary-600 mb-12 sm:mb-14 sm:text-lg md:text-xl md:max-w-2xl md:mx-auto md:mb-16 lg:mb-22 ">
-          Behind every event, every conversation, every episode, there's a story
-          being told. This is where you'll see some of that work in motion.
-        </p>
+        <FadeInUp>
+          <h1 className="text-3xl text-center sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-tertiary-50 mb-8">
+            Moments That Matter
+          </h1>
+        </FadeInUp>
+        <FadeInUp delay={0.1}>
+          <p className="text-center text-tertiary-600 mb-12 sm:mb-14 sm:text-lg md:text-xl md:max-w-2xl md:mx-auto md:mb-16 lg:mb-22 ">
+            Behind every event, every conversation, every episode, there&apos;s a story
+            being told. This is where you&apos;ll see some of that work in motion.
+          </p>
+        </FadeInUp>
       </section>
 
       {/* Gallery Grid Section */}
@@ -113,10 +124,21 @@ export default function Gallery() {
           >
             {chunk.map((image, index) => {
               const pattern = collagePattern[index];
+              // Stagger by row: items 0-2 row 0, 3-5 row 1, etc.
+              const rowIndex = Math.floor(index / 3);
+              const colIndex = index % 3;
+              const staggerDelay = rowIndex * 0.15 + colIndex * 0.08;
 
               return (
-                <div
+                <motion.div
                   key={image.id}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={viewportOnce}
+                  transition={{
+                    ...transitions.default,
+                    delay: shouldReduceMotion ? 0 : staggerDelay,
+                  }}
                   className={`relative w-full bg-[#FAF8F5] p-3 shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-transform hover:z-60 hover:scale-105 hover:rotate-0 duration-300 ${pattern.rotate} ${pattern.transform} ${pattern.z}`}
                 >
                   <div className="relative w-full aspect-square bg-tertiary-200 overflow-hidden">
@@ -135,7 +157,7 @@ export default function Gallery() {
                   {pattern.sticker === "heart" && (
                     <PinkHeart className="absolute -top-6 -left-6" />
                   )}
-                </div>
+                </motion.div>
               );
             })}
           </div>

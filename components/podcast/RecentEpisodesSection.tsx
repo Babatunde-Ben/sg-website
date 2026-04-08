@@ -1,4 +1,9 @@
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
 import { Button } from "@/components/ui/button";
+import { FadeInUp, StaggerContainer, StaggerItem } from "@/components/motion";
+import { hoverLift } from "@/lib/motion";
 
 const episodes = [
   {
@@ -19,31 +24,38 @@ const episodes = [
 ];
 
 export default function RecentEpisodesSection() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section className="section-padding-x mb-24 md:mb-32">
-      <h2 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold text-tertiary-50 mb-12">
-        Recent Episodes
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <FadeInUp>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold text-tertiary-50 mb-12">
+          Recent Episodes
+        </h2>
+      </FadeInUp>
+      <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {episodes.map((ep) => (
-          <div
-            key={ep.title}
-            className="bg-white/4 px-6 py-14 flex flex-col justify-between sm:px-8 md:px-10 xl:px-14"
-          >
-            <div className="flex-1">
-              <h3 className="text-xl font-bold font-albert text-tertiary-50 mb-6 lg:text-2xl">
-                {ep.title}
-              </h3>
-              <p className="text-tertiary-500/40 lg:text-lg mb-10">
-                {ep.description}
-              </p>
-            </div>
-            <Button variant="outline" className="w-full">
-              Listen
-            </Button>
-          </div>
+          <StaggerItem key={ep.title}>
+            <motion.div
+              whileHover={shouldReduceMotion ? undefined : hoverLift}
+              className="bg-white/4 px-6 py-14 flex flex-col justify-between sm:px-8 md:px-10 xl:px-14 h-full"
+            >
+              <div className="flex-1">
+                <h3 className="text-xl font-bold font-albert text-tertiary-50 mb-6 lg:text-2xl">
+                  {ep.title}
+                </h3>
+                <p className="text-tertiary-500/40 lg:text-lg mb-10">
+                  {ep.description}
+                </p>
+              </div>
+
+              <Button variant="outline" className="w-full">
+                Listen
+              </Button>
+            </motion.div>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerContainer>
     </section>
   );
 }
