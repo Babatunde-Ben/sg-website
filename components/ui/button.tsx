@@ -1,9 +1,12 @@
+"use client";
+
 import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Loader2 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { motion, useReducedMotion } from "motion/react";
+import { tapScale } from "@/lib/motion";
 
 const buttonVariants = cva(
   "cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-lg font-medium transition-all duration-200 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
@@ -38,6 +41,16 @@ const buttonVariants = cva(
   },
 );
 
+type MotionSafeButtonProps = Omit<
+  React.ComponentProps<"button">,
+  | "onDrag"
+  | "onDragStart"
+  | "onDragEnd"
+  | "onDragOver"
+  | "onAnimationStart"
+  | "onAnimationEnd"
+>;
+
 function Button({
   className,
   variant = "default",
@@ -47,16 +60,25 @@ function Button({
   disabled,
   children,
   ...props
-}: React.ComponentProps<"button"> &
+}: MotionSafeButtonProps &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
     loading?: boolean;
   }) {
-  const Comp = asChild ? Slot : "button";
   const isDisabled = Boolean(disabled || loading);
+  const shouldReduceMotion = useReducedMotion();
+
+  const content = (
+    <>
+      {loading && (
+        <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+      )}
+      {children}
+    </>
+  );
 
   return (
-    <Comp
+    <motion.button
       data-slot="button"
       data-variant={variant}
       data-size={size}
@@ -65,13 +87,11 @@ function Button({
       aria-disabled={isDisabled}
       className={cn(buttonVariants({ variant, size, className }))}
       disabled={!asChild ? isDisabled : undefined}
+      whileTap={shouldReduceMotion ? undefined : tapScale}
       {...props}
     >
-      {loading && (
-        <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-      )}
-      {children}
-    </Comp>
+      {content}
+    </motion.button>
   );
 }
 

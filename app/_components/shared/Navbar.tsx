@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion, useReducedMotion } from "motion/react";
 import DesktopLogo from "@/app/_assets/SVGs/desktop-logo.svg";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,9 +15,26 @@ import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ROUTES } from "@/lib/constant";
 import { useState } from "react";
+import { transitions } from "@/lib/motion";
+
+const mobileNavItemVariants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const mobileNavContainerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.06,
+      delayChildren: 0.1,
+    },
+  },
+};
 
 export default function Navbar() {
   const pathname = usePathname();
+  const shouldReduceMotion = useReducedMotion();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navItems = [
     { label: "Home", href: ROUTES.HOME },
@@ -76,10 +94,19 @@ export default function Navbar() {
               Mobile navigation links
             </SheetDescription>
             <div className="flex flex-col items-center h-full gap-22">
-              <ul className="space-y-10 flex-1 my-16">
+              <motion.ul
+                className="space-y-10 flex-1 my-16"
+                variants={mobileNavContainerVariants}
+                initial="hidden"
+                animate={isMobileMenuOpen ? "visible" : "hidden"}
+              >
                 {navItems.map((item) => (
-                  <li
+                  <motion.li
                     key={item.href}
+                    variants={
+                      shouldReduceMotion ? undefined : mobileNavItemVariants
+                    }
+                    transition={transitions.quick}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     <Link
@@ -88,9 +115,9 @@ export default function Navbar() {
                     >
                       {item.label}
                     </Link>
-                  </li>
+                  </motion.li>
                 ))}
-              </ul>
+              </motion.ul>
 
               <Link href={ROUTES.CONTACT} className="w-full max-w-80">
                 <Button
