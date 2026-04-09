@@ -4,7 +4,13 @@ import MusicNote from "@/app/_assets/SVGs/music-note.svg";
 import FeedbackCard from "@/app/_components/shared/FeedbackCard";
 import Profile1 from "@/app/_assets/images/profile-1.png";
 import Profile2 from "@/app/_assets/images/profile-2.png";
-import { FadeInUp, StaggerContainer, StaggerItem } from "@/components/motion";
+import { FadeInUp } from "@/components/motion";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 const testimonials = [
   {
@@ -17,6 +23,18 @@ const testimonials = [
     quote:
       "In a functioning state, she'll be my top pick for a Ministerial position. Won't be surprised if this manifested someday soon.",
     author: "Tammy Tolofari",
+    location: "Lagos",
+    image: Profile2,
+  },
+  {
+    quote: "The things I've learnt from this podcast are invaluable",
+    author: "Maureen O., Hr Lead",
+    location: "Lagos",
+    image: Profile2,
+  },
+  {
+    quote: "I love your energy and the way you carry yourself",
+    author: "Maureen O., Hr Lead",
     location: "Lagos",
     image: Profile2,
   },
@@ -35,18 +53,35 @@ export default function FromTheListenersSection() {
           </div>
         </FadeInUp>
 
-        <StaggerContainer className="w-full xl:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6 xl:gap-4">
-          {testimonials.map((testimonial, index) => (
-            <StaggerItem key={index}>
-              <FeedbackCard
-                author={testimonial.author}
-                location={testimonial.location}
-                image={testimonial.image}
-                quote={testimonial.quote}
-              />
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+        <FadeInUp delay={0.15} className="w-full xl:w-2/3">
+          <Carousel
+            opts={{ align: "start", dragFree: true, loop: true }}
+            plugins={[
+              Autoplay({
+                delay: 4000,
+                stopOnInteraction: false,
+                stopOnMouseEnter: true,
+              }),
+            ]}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-5">
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem
+                  key={index}
+                  className="pl-5 basis-[85%] sm:basis-[75%] md:basis-1/2"
+                >
+                  <FeedbackCard
+                    author={testimonial.author}
+                    location={testimonial.location}
+                    image={testimonial.image}
+                    quote={testimonial.quote}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </FadeInUp>
       </div>
     </section>
   );

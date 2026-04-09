@@ -4,12 +4,14 @@ import Profile1 from "@/app/_assets/images/profile-1.png";
 import Profile2 from "@/app/_assets/images/profile-2.png";
 import QuoteIcon from "@/app/_assets/SVGs/quote.svg";
 import FeedbackCard from "@/app/_components/shared/FeedbackCard";
-import {
-  FadeInUp,
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/motion";
+import { FadeInUp } from "@/components/motion";
 import { Separator } from "@/components/ui/separator";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 export default function TestimonialsSection() {
   const testimonials = [
@@ -44,18 +46,29 @@ export default function TestimonialsSection() {
           </div>
         </FadeInUp>
 
-        <StaggerContainer className="w-full xl:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6 xl:gap-4">
-          {testimonials.map((testimonial, index) => (
-            <StaggerItem key={index}>
-              <FeedbackCard
-                author={testimonial.author}
-                location={testimonial.location}
-                image={testimonial.image}
-                quote={testimonial.quote}
-              />
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+        <FadeInUp delay={0.15} className="w-full xl:w-2/3">
+          <Carousel
+            opts={{ align: "start", dragFree: true, loop: true }}
+            plugins={[Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })]}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-5">
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem
+                  key={index}
+                  className="pl-5 basis-[85%] sm:basis-[75%] md:basis-1/2"
+                >
+                  <FeedbackCard
+                    author={testimonial.author}
+                    location={testimonial.location}
+                    image={testimonial.image}
+                    quote={testimonial.quote}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </FadeInUp>
       </div>
       <Separator className="my-36" />
     </section>
