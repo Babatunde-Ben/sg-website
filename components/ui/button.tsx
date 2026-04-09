@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Loader2 } from "lucide-react";
@@ -39,6 +41,16 @@ const buttonVariants = cva(
   },
 );
 
+type MotionSafeButtonProps = Omit<
+  React.ComponentProps<"button">,
+  | "onDrag"
+  | "onDragStart"
+  | "onDragEnd"
+  | "onDragOver"
+  | "onAnimationStart"
+  | "onAnimationEnd"
+>;
+
 function Button({
   className,
   variant = "default",
@@ -48,13 +60,22 @@ function Button({
   disabled,
   children,
   ...props
-}: React.ComponentProps<"button"> &
+}: MotionSafeButtonProps &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
     loading?: boolean;
   }) {
   const isDisabled = Boolean(disabled || loading);
   const shouldReduceMotion = useReducedMotion();
+
+  const content = (
+    <>
+      {loading && (
+        <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+      )}
+      {children}
+    </>
+  );
 
   return (
     <motion.button
@@ -67,11 +88,9 @@ function Button({
       className={cn(buttonVariants({ variant, size, className }))}
       disabled={!asChild ? isDisabled : undefined}
       whileTap={shouldReduceMotion ? undefined : tapScale}
+      {...props}
     >
-      {loading && (
-        <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-      )}
-      {children}
+      {content}
     </motion.button>
   );
 }

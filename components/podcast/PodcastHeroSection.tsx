@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion, useAnimationControls } from "motion/react";
 import WithLoveWriting from "@/app/_assets/SVGs/with-love.svg";
 import HeroImage1 from "@/app/_assets/images/portrait-11.jpg";
 import HeroImage2 from "@/app/_assets/images/portrait-4.jpg";
@@ -50,11 +50,23 @@ export default function PodcastHeroSection() {
   const [pullDirection, setPullDirection] = useState(1);
   const isAnimatingRef = useRef(false);
 
+  // Reactive SVG asset animation
+  const withLoveControls = useAnimationControls();
+
   const shuffle = useCallback(() => {
     if (isAnimatingRef.current) return;
     isAnimatingRef.current = true;
 
     setPullingOut(true);
+
+    // Sympathetic SVG asset pulse
+    if (!shouldReduceMotion) {
+      withLoveControls.start({
+        scale: [1, 1.05, 1],
+        y: [0, -4, 0],
+        transition: { duration: 0.9, ease: "easeInOut" },
+      });
+    }
 
     setTimeout(() => {
       setPullingOut(false);
@@ -85,7 +97,8 @@ export default function PodcastHeroSection() {
         {/* SVG asset – animated in on load */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          animate={withLoveControls}
+          onViewportEnter={() => withLoveControls.start({ opacity: 1, scale: 1 })}
           transition={{
             duration: 0.6,
             delay: 0.5,

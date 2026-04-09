@@ -12,7 +12,7 @@ export default function Gallery() {
   const shouldReduceMotion = useReducedMotion();
 
   type CollageSlot = {
-    rotate: string;
+    rotate: number;
     transform: string;
     z: string;
     sticker?: "dragon" | "heart";
@@ -26,64 +26,64 @@ export default function Gallery() {
   // Fixed 12-slot collage pattern (content can come from CMS independently)
   const collagePattern: CollageSlot[] = [
     {
-      rotate: "-rotate-3",
+      rotate: -3,
       transform: "translate-y-4 md:translate-x-4",
       z: "z-10",
     },
     {
-      rotate: "rotate-2",
+      rotate: 2,
       transform: "-translate-y-4",
       z: "z-20",
       sticker: "dragon",
     },
     {
-      rotate: "rotate-3",
+      rotate: 3,
       transform: "translate-y-8 md:-translate-x-4",
       z: "z-10",
     },
     {
-      rotate: "-rotate-2",
+      rotate: -2,
       transform: "-translate-y-6 md:-translate-y-12 md:translate-x-2",
       z: "z-20",
     },
     {
-      rotate: "-rotate-1",
+      rotate: -1,
       transform: "-translate-y-4 md:-translate-y-16 scale-100 md:scale-110",
       z: "z-30",
     },
     {
-      rotate: "rotate-2",
+      rotate: 2,
       transform: "-translate-y-8 md:-translate-y-20 md:-translate-x-4",
       z: "z-20",
     },
     {
-      rotate: "-rotate-3",
+      rotate: -3,
       transform: "-translate-y-10 md:-translate-y-24 md:translate-x-4",
       z: "z-30",
     },
     {
-      rotate: "rotate-2",
+      rotate: 2,
       transform: "-translate-y-8 md:-translate-y-20",
       z: "z-40",
     },
     {
-      rotate: "-rotate-1",
+      rotate: -1,
       transform: "-translate-y-12 md:-translate-y-32 md:-translate-x-4",
       z: "z-30",
       sticker: "heart",
     },
     {
-      rotate: "rotate-3",
+      rotate: 3,
       transform: "-translate-y-16 md:-translate-y-36 md:translate-x-2",
       z: "z-40",
     },
     {
-      rotate: "-rotate-2",
+      rotate: -2,
       transform: "-translate-y-14 md:-translate-y-32",
       z: "z-20",
     },
     {
-      rotate: "rotate-2",
+      rotate: 2,
       transform: "-translate-y-18 md:-translate-y-44 md:-translate-x-6",
       z: "z-50",
     },
@@ -134,12 +134,23 @@ export default function Gallery() {
                   key={image.id}
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
+                  whileHover={
+                    shouldReduceMotion
+                      ? undefined
+                      : {
+                          scale: 1.05,
+                          rotate: 0,
+                          zIndex: 60,
+                          transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
+                        }
+                  }
                   viewport={viewportOnce}
                   transition={{
-                    ...transitions.default,
-                    delay: shouldReduceMotion ? 0 : staggerDelay,
+                    opacity: { ...transitions.default, delay: shouldReduceMotion ? 0 : staggerDelay },
+                    default: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
                   }}
-                  className={`relative w-full bg-[#FAF8F5] p-3 shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-transform hover:z-60 hover:scale-105 hover:rotate-0 duration-300 ${pattern.rotate} ${pattern.transform} ${pattern.z}`}
+                  style={{ rotate: pattern.rotate }}
+                  className={`relative w-full bg-[#FAF8F5] p-3 shadow-[0_20px_40px_rgba(0,0,0,0.5)] ${pattern.transform} ${pattern.z}`}
                 >
                   <div className="relative w-full aspect-square bg-tertiary-200 overflow-hidden">
                     <Image

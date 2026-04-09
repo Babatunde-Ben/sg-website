@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion, useAnimationControls } from "motion/react";
 import HeroImage1 from "@/app/_assets/images/portrait-1.jpg";
 import HeroImage2 from "@/app/_assets/images/portrait-2.jpg";
 import HeroImage3 from "@/app/_assets/images/portrait-3.jpg";
@@ -53,12 +53,36 @@ export default function HeroSection() {
   const [pullDirection, setPullDirection] = useState(1); // 1 = right, -1 = left
   const isAnimatingRef = useRef(false);
 
+  // Reactive SVG asset animations
+  const hollaControls = useAnimationControls();
+  const pencilControls = useAnimationControls();
+  const stephControls = useAnimationControls();
+
   const shuffle = useCallback(() => {
     if (isAnimatingRef.current) return;
     isAnimatingRef.current = true;
 
     // Phase 1: Front card sweeps out to the side
     setPullingOut(true);
+
+    // Sympathetic SVG asset pulse
+    if (!shouldReduceMotion) {
+      hollaControls.start({
+        scale: [1, 1.05, 1],
+        y: [0, -4, 0],
+        transition: { duration: 0.9, ease: "easeInOut" },
+      });
+      pencilControls.start({
+        rotate: [0, -3, 0],
+        y: [0, -2, 0],
+        transition: { duration: 1, ease: "easeInOut", delay: 0.05 },
+      });
+      stephControls.start({
+        scale: [1, 1.04, 1],
+        y: [0, 2, 0],
+        transition: { duration: 0.8, ease: "easeInOut", delay: 0.1 },
+      });
+    }
 
     // Phase 2: Reorder the stack, let everything settle
     setTimeout(() => {
@@ -92,7 +116,8 @@ export default function HeroSection() {
         {/* SVG assets – animated in sequentially once */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          animate={hollaControls}
+          onViewportEnter={() => hollaControls.start({ opacity: 1, scale: 1 })}
           transition={{
             duration: 0.6,
             delay: 0.5,
@@ -105,7 +130,8 @@ export default function HeroSection() {
 
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          animate={stephControls}
+          onViewportEnter={() => stephControls.start({ opacity: 1, scale: 1 })}
           transition={{
             duration: 0.6,
             delay: 0.8,
@@ -118,7 +144,8 @@ export default function HeroSection() {
 
         <motion.div
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={pencilControls}
+          onViewportEnter={() => pencilControls.start({ opacity: 1, y: 0 })}
           transition={{
             duration: 0.8,
             delay: 1.1,

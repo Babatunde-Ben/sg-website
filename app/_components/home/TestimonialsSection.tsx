@@ -28,6 +28,18 @@ export default function TestimonialsSection() {
       location: "Lagos",
       image: Profile2,
     },
+    {
+      quote: "The things I've learnt from this podcast are invaluable",
+      author: "Maureen O., Hr Lead",
+      location: "Lagos",
+      image: Profile2,
+    },
+    {
+      quote: "I love your energy and the way you carry yourself",
+      author: "Maureen O., Hr Lead",
+      location: "Lagos",
+      image: Profile2,
+    },
   ];
   return (
     <section className="section-padding-x ">
@@ -49,7 +61,13 @@ export default function TestimonialsSection() {
         <FadeInUp delay={0.15} className="w-full xl:w-2/3">
           <Carousel
             opts={{ align: "start", dragFree: true, loop: true }}
-            plugins={[Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })]}
+            plugins={[
+              Autoplay({
+                delay: 4000,
+                stopOnInteraction: false,
+                stopOnMouseEnter: true,
+              }),
+            ]}
             className="w-full"
           >
             <CarouselContent className="-ml-5">
