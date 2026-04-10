@@ -1,7 +1,5 @@
 "use client";
 
-import Profile1 from "@/app/_assets/images/profile-1.png";
-import Profile2 from "@/app/_assets/images/profile-2.png";
 import QuoteIcon from "@/app/_assets/SVGs/quote.svg";
 import FeedbackCard from "@/app/_components/shared/FeedbackCard";
 import { FadeInUp } from "@/components/motion";
@@ -13,34 +11,23 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 
-export default function TestimonialsSection() {
-  const testimonials = [
-    {
-      quote: "Love your style Stephanie George, you lead with power and spark.",
-      author: "Pastor T.",
-      location: "Lagos",
-      image: Profile1,
-    },
-    {
-      quote:
-        "In a functioning state, she'll be my top pick for a Ministerial position. Won't be surprised if this manifested someday soon.",
-      author: "Mensah, Hr Lead",
-      location: "Lagos",
-      image: Profile2,
-    },
-    {
-      quote: "The things I've learnt from this podcast are invaluable",
-      author: "Maureen O., Hr Lead",
-      location: "Lagos",
-      image: Profile2,
-    },
-    {
-      quote: "I love your energy and the way you carry yourself",
-      author: "Maureen O., Hr Lead",
-      location: "Lagos",
-      image: Profile2,
-    },
-  ];
+export interface RoomTestimonial {
+  _id: string;
+  quote: string | null;
+  author: string | null;
+  locationOrRole?: string | null;
+  avatarUrl?: string | null;
+}
+
+interface TestimonialsSectionProps {
+  testimonials: RoomTestimonial[];
+}
+
+export default function TestimonialsSection({
+  testimonials,
+}: TestimonialsSectionProps) {
+  if (!testimonials || testimonials.length === 0) return null;
+
   return (
     <section className="section-padding-x ">
       <div className="flex flex-col xl:flex-row gap-14 xl:gap-8">
@@ -73,14 +60,14 @@ export default function TestimonialsSection() {
             <CarouselContent className="-ml-5">
               {testimonials.map((testimonial, index) => (
                 <CarouselItem
-                  key={index}
-                  className="pl-5 basis-[85%] sm:basis-[75%] md:basis-1/2"
+                  key={testimonial._id}
+                  className="pl-5 py-2 basis-[85%] sm:basis-[75%] md:basis-1/2"
                 >
                   <FeedbackCard
-                    author={testimonial.author}
-                    location={testimonial.location}
-                    image={testimonial.image}
-                    quote={testimonial.quote}
+                    author={testimonial.author || ""}
+                    location={testimonial.locationOrRole || ""}
+                    image={testimonial.avatarUrl || ""}
+                    quote={testimonial.quote || ""}
                   />
                 </CarouselItem>
               ))}
