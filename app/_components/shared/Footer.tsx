@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import Link from "next/link";
-import { CheckCircle2 } from "lucide-react";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -35,7 +35,16 @@ const footerNavItems = [
   { label: "Gallery", href: ROUTES.GALLERY },
 ];
 
-export default function Footer() {
+export interface ContactInfo {
+  phone?: string | null;
+  email?: string | null;
+}
+
+interface FooterProps {
+  contactInfo?: ContactInfo | null;
+}
+
+export default function Footer({ contactInfo }: FooterProps) {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState(
     "Thank you. You are now subscribed.",
@@ -152,16 +161,16 @@ export default function Footer() {
         <FadeInUp delay={0.2}>
           <div className="flex flex-col sm:flex-row gap-4 mt-2">
             <Link
-              href="mailto:StephGeorge@gmail.com"
+              href={`mailto:${contactInfo?.email || "StephGeorge@gmail.com"}`}
               className="inline-flex items-center justify-center bg-primary-400/30 hover:bg-primary-400/40 text-tertiary-700 py-4 px-7 transition-colors duration-200"
             >
-              StephGeorge@gmail.com
+              {contactInfo?.email || "StephGeorge@gmail.com"}
             </Link>
             <Link
-              href="tel:+12362342810"
+              href={`tel:${contactInfo?.phone || "+12362342810"}`}
               className="inline-flex items-center justify-center bg-primary-400/30 hover:bg-primary-400/40 text-tertiary-700 py-4 px-7 transition-colors duration-200"
             >
-              +1(236)2342810
+              {contactInfo?.phone || "+1(236)2342810"}
             </Link>
           </div>
         </FadeInUp>
@@ -184,10 +193,15 @@ export default function Footer() {
       <Dialog open={isSuccessModalOpen} onOpenChange={setIsSuccessModalOpen}>
         <DialogContent className="px-6 py-8 md:px-8" showCloseButton={false}>
           <DialogHeader>
-            <CheckCircle2
-              className="size-12 text-tertiary-400 mx-auto mb-2"
-              aria-hidden="true"
-            />
+            <div className="mx-auto mb-2">
+              <DotLottieReact src="/lottie/success.json" autoplay loop />
+              <DotLottieReact
+                src="/lottie/confetti.json"
+                autoplay
+                className="absolute top-5 left-1/2 -translate-x-1/2"
+              />
+            </div>
+
             <DialogTitle>Subscription successful</DialogTitle>
             <DialogDescription>{successMessage}</DialogDescription>
           </DialogHeader>

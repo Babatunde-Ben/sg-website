@@ -8,31 +8,76 @@ import ApplePodcastLogo from "@/app/_assets/SVGs/apple-podcast-logo.svg";
 import { StaggerContainer, StaggerItem } from "@/components/motion";
 import { hoverLift } from "@/lib/motion";
 import Link from "next/link";
+import { GetContactInfoQueryResult } from "@/sanity.types";
 
-export default function AvailableOnSection() {
+interface AvailableOnSectionProps {
+  contactInfo?: GetContactInfoQueryResult | null;
+}
+
+export default function AvailableOnSection({ contactInfo }: AvailableOnSectionProps) {
   const shouldReduceMotion = useReducedMotion();
-  const channels = [
-    {
+  
+  // Build channels dynamic array based on available links in the CMS
+  const channels = [];
+
+  if (contactInfo?.socialLinks?.spotify) {
+    channels.push({
       name: "Spotify",
       icon: SpotifyLogo,
-      link: "https://open.spotify.com/show/3058706",
-    },
-    {
+      link: contactInfo.socialLinks.spotify,
+    });
+  }
+
+  if (contactInfo?.socialLinks?.soundcloud) {
+    channels.push({
       name: "SoundCloud",
       icon: SoundCloudLogo,
-      link: "https://soundcloud.com/stephaniegeorge-1",
-    },
-    {
+      link: contactInfo.socialLinks.soundcloud,
+    });
+  }
+
+  if (contactInfo?.socialLinks?.youtubeMusic) {
+    channels.push({
       name: "Youtube Music",
       icon: YoutubeMusicLogo,
-      link: "https://music.youtube.com/playlist?list=gtgOLAK5uy_lV31JLWwbiwXaw64RIPpWHorGrKx",
-    },
-    {
+      link: contactInfo.socialLinks.youtubeMusic,
+    });
+  }
+
+  if (contactInfo?.socialLinks?.applePodcast) {
+    channels.push({
       name: "Apple Podcast",
       icon: ApplePodcastLogo,
-      link: "https://podcasts.apple.com/ng/podcast/the-stephanie-george-podcast/id1635176164",
-    },
-  ];
+      link: contactInfo.socialLinks.applePodcast,
+    });
+  }
+
+  // Fallback to static URLs if no contact info provided
+  if (channels.length === 0) {
+    channels.push(
+      {
+        name: "Spotify",
+        icon: SpotifyLogo,
+        link: "https://spotify.com",
+      },
+      {
+        name: "SoundCloud",
+        icon: SoundCloudLogo,
+        link: "https://soundcloud.com",
+      },
+      {
+        name: "Youtube Music",
+        icon: YoutubeMusicLogo,
+        link: "https://music.youtube.com",
+      },
+      {
+        name: "Apple Podcast",
+        icon: ApplePodcastLogo,
+        link: "https://podcasts.apple.com",
+      }
+    );
+  }
+
   return (
     <section className="section-padding-x my-20 md:my-24 lg:my-32">
       <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">

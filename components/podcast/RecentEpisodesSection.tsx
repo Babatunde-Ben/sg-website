@@ -11,36 +11,23 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 
-const episodes = [
-  {
-    title: "Ep. 01: When Faith Feels Heavy",
-    description:
-      "What do you do when prayer feels like work and you are not sure what you believe anymore—but you still want to stay honest with God?",
-  },
-  {
-    title: "Ep. 02: Money and Shame",
-    description:
-      "Let's talk about debt, financial pressure, and the quiet shame many of us carry. How do we untangle our worth from our bank accounts?",
-  },
-  {
-    title: "Ep. 03: Friendship as an Adult",
-    description:
-      "Why is making and keeping friends so complicated now? How do we show up with courage, clarity, and boundaries that still make room for love?",
-  },
-  {
-    title: "Ep. 02: Money and Shame",
-    description:
-      "Let's talk about debt, financial pressure, and the quiet shame many of us carry. How do we untangle our worth from our bank accounts?",
-  },
-  {
-    title: "Ep. 03: Friendship as an Adult",
-    description:
-      "Why is making and keeping friends so complicated now? How do we show up with courage, clarity, and boundaries that still make room for love?",
-  },
-];
+import Link from "next/link";
 
-export default function RecentEpisodesSection() {
+export interface Episode {
+  _id: string;
+  title: string | null;
+  description: string | null;
+  listenUrl?: string | null;
+}
+
+interface RecentEpisodesSectionProps {
+  episodes: Episode[];
+}
+
+export default function RecentEpisodesSection({ episodes }: RecentEpisodesSectionProps) {
   const shouldReduceMotion = useReducedMotion();
+
+  if (!episodes || episodes.length === 0) return null;
 
   return (
     <section className="section-padding-x mb-24 md:mb-32">
@@ -64,7 +51,7 @@ export default function RecentEpisodesSection() {
           <CarouselContent className="-ml-5 md:-ml-8">
             {episodes.map((ep) => (
               <CarouselItem
-                key={ep.title}
+                key={ep._id}
                 className="pl-5 md:pl-8 basis-[85%] sm:basis-[75%] md:basis-[48%] lg:basis-1/3"
               >
                 <motion.div
@@ -80,9 +67,17 @@ export default function RecentEpisodesSection() {
                     </p>
                   </div>
 
-                  <Button variant="outline" className="w-full">
-                    Listen
-                  </Button>
+                  {ep.listenUrl ? (
+                    <Link href={ep.listenUrl} target="_blank" rel="noopener noreferrer">
+                      <Button variant="outline" className="w-full">
+                        Listen
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Button variant="outline" className="w-full" disabled>
+                      Processing...
+                    </Button>
+                  )}
                 </motion.div>
               </CarouselItem>
             ))}

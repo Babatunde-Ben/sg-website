@@ -7,18 +7,30 @@ import {
   AnimatedCounter,
 } from "@/components/motion";
 
-export default function StatsSection() {
+export interface GlobalStats {
+  eventsWorldwide: number | null;
+  peopleImpacted: number | null;
+  yearsExperience: number | null;
+}
+
+interface StatsSectionProps {
+  stats?: GlobalStats | null;
+}
+
+export default function StatsSection({
+  stats: sanityStats,
+}: StatsSectionProps) {
   const stats = [
     {
-      value: 100,
+      value: sanityStats?.eventsWorldwide || 100,
       label: "Events Worldwide",
     },
     {
-      value: 50000,
+      value: sanityStats?.peopleImpacted || 50000,
       label: "People Impacted",
     },
     {
-      value: 10,
+      value: sanityStats?.yearsExperience || 10,
       label: "Years Experience",
     },
   ];

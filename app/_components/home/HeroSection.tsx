@@ -9,6 +9,7 @@ import HeroImage3 from "@/app/_assets/images/portrait-3.jpg";
 import HollaWriting from "@/app/_assets/SVGs/holla.svg";
 import HeroPencil from "@/app/_assets/SVGs/hero-pencil.svg";
 import StephWriting from "@/app/_assets/SVGs/steph.svg";
+import HeroBackgroundImage from "@/app/_assets/images/hero-bg.jpg";
 
 const cards = [
   {
@@ -108,7 +109,10 @@ export default function HeroSection() {
   }, [shuffle, shouldReduceMotion]);
 
   return (
-    <section className="relative pt-40 pb-10 section-padding-x flex flex-col items-center justify-center bg-primary-500 lg:pb-28">
+    <section
+      className="relative pt-40 pb-10 section-padding-x flex flex-col items-center justify-center bg-cover bg-center lg:pb-28"
+      style={{ backgroundImage: `url(${HeroBackgroundImage.src})` }}
+    >
       <div
         className="relative -translate-x-3 w-11/12 max-w-5xl h-72 sm:h-96 md:h-128 lg:h-[680px]"
         style={{ perspective: 1200 }}

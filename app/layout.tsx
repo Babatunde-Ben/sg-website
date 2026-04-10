@@ -3,6 +3,8 @@ import { Albert_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/_components/shared/Navbar";
 import Footer from "@/app/_components/shared/Footer";
+import { client } from "@/lib/sanity/client";
+import { getContactInfoQuery } from "@/lib/sanity/queries";
 
 const albertSans = Albert_Sans({
   variable: "--font-albert-sans",
@@ -14,12 +16,13 @@ export const metadata: Metadata = {
   description:
     "Stephanie is a dynamic public speaker who captivates audiences with powerful stories, relatable experiences, and practical insights that inspire personal growth and collective impact.",
 };
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const contactInfo = await client.fetch(getContactInfoQuery, {}, { next: { tags: ['contactInfo'] } });
+
   return (
     <html lang="en">
       <body
@@ -29,7 +32,7 @@ export default function RootLayout({
         <main className="flex-1 overflow-hidden 2xl:max-w-[1536px] 2xl:mx-auto">
           {children}
         </main>
-        <Footer />
+        <Footer contactInfo={contactInfo} />
       </body>
     </html>
   );

@@ -5,8 +5,15 @@ import WhatIDoSection from "@/components/about/WhatIDoSection";
 import SignatureTopicsSection from "@/components/about/SignatureTopicsSection";
 import FromTheRoomTestimonialsSection from "@/components/about/FromTheRoomTestimonialsSection";
 import CTASection from "@/components/about/CTASection";
+import { client } from "@/lib/sanity/client";
+import { getAllTestimonialsQuery } from "@/lib/sanity/queries";
 
-export default function About() {
+export const revalidate = 3600;
+
+export default async function About() {
+  const allTestimonials = await client.fetch(getAllTestimonialsQuery, {}, { next: { tags: ['testimonial'] } });
+  const testimonials = allTestimonials.filter(t => t.category === 'room');
+
   return (
     <>
       <HeroNotebookSection />
@@ -14,7 +21,7 @@ export default function About() {
       <WhatSetsMeApartSection />
       <WhatIDoSection />
       <SignatureTopicsSection />
-      <FromTheRoomTestimonialsSection />
+      <FromTheRoomTestimonialsSection testimonials={testimonials} />
       <CTASection />
     </>
   );
