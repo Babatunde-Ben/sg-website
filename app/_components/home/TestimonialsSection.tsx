@@ -17,6 +17,7 @@ export interface RoomTestimonial {
   author: string | null;
   locationOrRole?: string | null;
   avatarUrl?: string | null;
+  avatarLqip?: string | null;
 }
 
 interface TestimonialsSectionProps {
@@ -67,6 +68,7 @@ export default function TestimonialsSection({
                     author={testimonial.author || ""}
                     location={testimonial.locationOrRole || ""}
                     image={testimonial.avatarUrl || ""}
+                    imageLqip={testimonial.avatarLqip || undefined}
                     quote={testimonial.quote || ""}
                   />
                 </CarouselItem>

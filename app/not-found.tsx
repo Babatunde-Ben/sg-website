@@ -9,12 +9,12 @@ export default function NotFound() {
   return (
     <>
       <section className="section-padding-x pt-40 mb-20 lg:mb-40 text-center min-h-[calc(100vh-4rem)]">
-        <Image
+        <Image placeholder="blur"
           src={NotFoundBook}
           alt="404 not found"
           className="absolute -bottom-10 right-0 hidden xl:block"
         />
-        <Image
+        <Image placeholder="blur"
           src={NotFound404}
           alt="404 not found"
           className="w-2xl mx-auto"
