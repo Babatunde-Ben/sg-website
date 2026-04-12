@@ -212,6 +212,7 @@ export default function HeroSection() {
                 fill
                 className={`object-cover ${card.objectPosition}`}
                 priority
+                placeholder="blur"
               />
             </motion.div>
           );

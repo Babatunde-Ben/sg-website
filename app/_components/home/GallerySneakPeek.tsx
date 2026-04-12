@@ -14,7 +14,7 @@ export default function GallerySneakPeek() {
           <WithLoveWriting className="w-full" />
         </FadeIn>
         <ScaleIn delay={0} className="group relative w-full h-[464px] sm:h-[600px] lg:h-[700px] overflow-hidden">
-          <Image
+          <Image placeholder="blur"
             src={GalleryImage1}
             alt="Gallery Preview 1"
             fill
@@ -23,7 +23,7 @@ export default function GallerySneakPeek() {
           <div className="size-full absolute  bg-linear-to-b from-primary-500/40 from-50% to-primary-500" />
         </ScaleIn>
         <ScaleIn delay={0.15} className="group relative w-full h-[464px] sm:h-[600px] lg:h-[700px] overflow-hidden">
-          <Image
+          <Image placeholder="blur"
             src={GalleryImage2}
             alt="Gallery Preview 2"
             fill

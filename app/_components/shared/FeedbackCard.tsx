@@ -9,12 +9,14 @@ interface FeedbackCardProps {
   author: string;
   location: string;
   image: string;
+  imageLqip?: string;
 }
 export default function FeedbackCard({
   quote,
   author,
   location,
   image,
+  imageLqip,
 }: FeedbackCardProps) {
   const shouldReduceMotion = useReducedMotion();
 
@@ -34,10 +36,12 @@ export default function FeedbackCard({
             alt={author}
             fill
             className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+            placeholder={imageLqip ? "blur" : "empty"}
+            blurDataURL={imageLqip}
           />
         </div>
         <p className="text-white">
-          <span className=" font-bold text-lg md:text-xl">{author},</span>
+          <span className="font-bold sm:text-lg md:text-xl">{author},</span>
           <span className="md:text-lg ml-2">{location}.</span>
         </p>
       </div>

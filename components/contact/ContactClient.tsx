@@ -108,7 +108,7 @@ export default function ContactClient({ contactInfo }: ContactClientProps) {
         </FadeInUp>
         <ScaleIn>
           <div className="group relative w-full h-[40vh] md:h-[60vh] max-h-[400px] overflow-hidden">
-            <Image
+            <Image placeholder="blur"
               src={SpeakingImage}
               alt="Stephanie speaking at event"
               fill

@@ -40,7 +40,7 @@ export default function PodcastIntroSection() {
           </StaggerContainer>
 
           <ScaleIn className="group relative w-full min-h-56 sm:min-h-72 md:min-h-80 h-full overflow-hidden">
-            <Image
+            <Image placeholder="blur"
               src={PodcastImage}
               alt="Stephanie in studio"
               fill

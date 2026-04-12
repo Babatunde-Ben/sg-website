@@ -17,7 +17,8 @@ export const getAllTestimonialsQuery = defineQuery(`
     author,
     locationOrRole,
     category,
-    "avatarUrl": avatar.asset->url
+    "avatarUrl": avatar.asset->url,
+    "avatarLqip": avatar.asset->metadata.lqip
   }
 `);
 
@@ -25,7 +26,8 @@ export const getGalleryImagesQuery = defineQuery(`
   *[_type == "galleryImage"] | order(_createdAt desc) [0...$limit] {
     _id,
     altText,
-    "imageUrl": image.asset->url
+    "imageUrl": image.asset->url,
+    "imageLqip": image.asset->metadata.lqip
   }
 `);
 
@@ -35,6 +37,7 @@ export const getMoreGalleryImagesQuery = defineQuery(`
     _id,
     altText,
     "imageUrl": image.asset->url,
+    "imageLqip": image.asset->metadata.lqip,
     _createdAt
   }
 `);
@@ -45,6 +48,7 @@ export const getInitialGalleryImagesQuery = defineQuery(`
     _id,
     altText,
     "imageUrl": image.asset->url,
+    "imageLqip": image.asset->metadata.lqip,
     _createdAt
   }
 `);

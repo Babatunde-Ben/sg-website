@@ -55,7 +55,7 @@ export default function ServicesSection() {
           <StaggerItem key={index}>
             <div className="flex flex-col h-full group">
               <div className="relative aspect-square w-full mb-2 overflow-hidden group-hover:opacity-90 transition-opacity">
-                <Image
+                <Image placeholder="blur"
                   src={item.image}
                   alt={item.title}
                   fill

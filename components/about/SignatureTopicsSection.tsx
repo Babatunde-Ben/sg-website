@@ -36,7 +36,7 @@ export default function SignatureTopicsSection() {
           <StaggerItem key={index}>
             <div>
               <ImageReveal className="group relative aspect-square w-full min-h-80 mb-2 overflow-hidden">
-                <Image
+                <Image placeholder="blur"
                   src={item.image}
                   alt={item.title}
                   fill

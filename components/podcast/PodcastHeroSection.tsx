@@ -152,7 +152,7 @@ export default function PodcastHeroSection() {
                 boxShadow: shadow,
               }}
             >
-              <Image
+              <Image placeholder="blur"
                 src={card.src}
                 alt={card.alt}
                 fill

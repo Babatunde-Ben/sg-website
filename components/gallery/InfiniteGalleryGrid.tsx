@@ -13,6 +13,7 @@ export interface GalleryImage {
   _id: string;
   altText: string | null;
   imageUrl: string | null;
+  imageLqip: string | null;
 
   _createdAt: string;
 }
@@ -137,6 +138,8 @@ export default function InfiniteGalleryGrid({ initialImages }: { initialImages: 
                       alt={image.altText || "Gallery Image"}
                       fill
                       className="object-cover"
+                      placeholder={image.imageLqip ? "blur" : "empty"}
+                      blurDataURL={image.imageLqip || undefined}
                     />
                   </div>
 

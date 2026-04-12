@@ -14,7 +14,7 @@ export default function HeroNotebookSection() {
       <div className="absolute inset-0 bg-linear-to-t from-primary-500 from-5% via-transparent to-transparent z-10 " />
 
       <ScaleIn delay={0.2} className="relative z-20">
-        <Image
+        <Image placeholder="blur"
           src={AboutBookImage}
           alt="About Book"
         />

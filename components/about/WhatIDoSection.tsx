@@ -31,7 +31,7 @@ export default function WhatIDoSection() {
       {/* Hosting & Moderation */}
       <div className="grid grid-cols-1 mb-8 sm:mb-10 md:mb-12 lg:mb-14 xl:mb-20 xl:grid-cols-2 ">
         <ScaleIn className="group w-full relative min-h-80 sm:min-h-96 md:min-h-128 xl:min-h-full overflow-hidden">
-          <Image
+          <Image placeholder="blur"
             src={HostingImage}
             alt="Stephanie Hosting & Moderating"
             fill
@@ -95,7 +95,7 @@ export default function WhatIDoSection() {
               </StaggerContainer>
             </div>
             <ScaleIn className="group w-full relative min-h-80 sm:min-h-96 md:min-h-128 xl:min-h-full overflow-hidden">
-              <Image
+              <Image placeholder="blur"
                 src={SpeakingImage}
                 alt="Stephanie speaking"
                 fill
