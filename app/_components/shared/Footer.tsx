@@ -5,17 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import Link from "next/link";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import SuccessModal from "@/components/ui/success-modal";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { ROUTES } from "@/lib/constant";
@@ -190,30 +181,12 @@ export default function Footer({ contactInfo }: FooterProps) {
         </FadeIn>
       </section>
 
-      <Dialog open={isSuccessModalOpen} onOpenChange={setIsSuccessModalOpen}>
-        <DialogContent className="px-6 py-8 md:px-8" showCloseButton={false}>
-          <DialogHeader>
-            <div className="mx-auto mb-2">
-              <DotLottieReact src="/lottie/success.json" autoplay loop />
-              <DotLottieReact
-                src="/lottie/confetti.json"
-                autoplay
-                className="absolute top-5 left-1/2 -translate-x-1/2"
-              />
-            </div>
-
-            <DialogTitle>Subscription successful</DialogTitle>
-            <DialogDescription>{successMessage}</DialogDescription>
-          </DialogHeader>
-          <DialogFooter className="mt-6">
-            <DialogClose asChild>
-              <Button type="button" className="w-full">
-                Close
-              </Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <SuccessModal
+        open={isSuccessModalOpen}
+        onOpenChange={setIsSuccessModalOpen}
+        title="Subscription successful"
+        message={successMessage}
+      />
     </footer>
   );
 }
