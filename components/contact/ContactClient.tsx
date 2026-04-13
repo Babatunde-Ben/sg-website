@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import { motion, useReducedMotion } from "motion/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
@@ -10,6 +12,7 @@ import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import SuccessModal from "@/components/ui/success-modal";
 import SpeakingImage from "@/app/_assets/images/portrait-7.jpg";
 import Phone from "@/app/_assets/SVGs/call-02.svg";
 import Mail from "@/app/_assets/SVGs/mail-01.svg";
@@ -57,6 +60,10 @@ interface ContactClientProps {
 
 export default function ContactClient({ contactInfo }: ContactClientProps) {
   const shouldReduceMotion = useReducedMotion();
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(
+    "Your message has been sent. Thank you for reaching out.",
+  );
 
   const socialLinks = [];
   if (contactInfo?.socialLinks?.x)
@@ -89,7 +96,42 @@ export default function ContactClient({ contactInfo }: ContactClientProps) {
     },
   });
 
-  function onSubmit(_values: ContactFormValues) {}
+  async function onSubmit(values: ContactFormValues) {
+    form.clearErrors();
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+
+      const result = (await response.json().catch(() => null)) as {
+        ok?: boolean;
+        message?: string;
+      } | null;
+
+      if (!response.ok || !result?.ok) {
+        form.setError("root", {
+          type: "manual",
+          message: result?.message ?? "Something went wrong. Please try again.",
+        });
+        return;
+      }
+
+      setSuccessMessage(
+        result.message ??
+          "Your message has been sent. Thank you for reaching out.",
+      );
+      setIsSuccessModalOpen(true);
+      form.reset();
+    } catch {
+      form.setError("root", {
+        type: "manual",
+        message: "Network error. Please try again shortly.",
+      });
+    }
+  }
 
   return (
     <>
@@ -108,7 +150,8 @@ export default function ContactClient({ contactInfo }: ContactClientProps) {
         </FadeInUp>
         <ScaleIn>
           <div className="group relative w-full h-[40vh] md:h-[60vh] max-h-[400px] overflow-hidden">
-            <Image placeholder="blur"
+            <Image
+              placeholder="blur"
               src={SpeakingImage}
               alt="Stephanie speaking at event"
               fill
@@ -292,6 +335,7 @@ export default function ContactClient({ contactInfo }: ContactClientProps) {
                         {...field}
                         id="message"
                         placeholder=""
+                        maxLength={1000}
                         aria-invalid={fieldState.invalid}
                       />
                       <Label floating required htmlFor="message">
@@ -304,9 +348,19 @@ export default function ContactClient({ contactInfo }: ContactClientProps) {
                   )}
                 />
 
+                {form.formState.errors.root && (
+                  <p className="bg-destructive/5 py-1.5 px-2 text-destructive text-sm text-center">
+                    {form.formState.errors.root.message}
+                  </p>
+                )}
+
                 <div>
-                  <Button type="submit" className="w-full">
-                    Submit
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    loading={form.formState.isSubmitting}
+                  >
+                    {form.formState.isSubmitting ? "Sending..." : "Submit"}
                   </Button>
                 </div>
               </form>
@@ -314,6 +368,13 @@ export default function ContactClient({ contactInfo }: ContactClientProps) {
           </FadeIn>
         </div>
       </section>
+
+      <SuccessModal
+        open={isSuccessModalOpen}
+        onOpenChange={setIsSuccessModalOpen}
+        title="Message Sent"
+        message={successMessage}
+      />
     </>
   );
 }
