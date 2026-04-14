@@ -1,9 +1,17 @@
+import type { Metadata } from "next";
 import { FadeInUp } from "@/components/motion";
 import { client } from "@/lib/sanity/client";
 import { getInitialGalleryImagesQuery } from "@/lib/sanity/queries";
 import InfiniteGalleryGrid from "@/components/gallery/InfiniteGalleryGrid";
+import { buildPageMetadata } from "@/lib/seo";
 
 export const revalidate = 3600;
+export const metadata: Metadata = buildPageMetadata({
+  title: "Gallery",
+  description:
+    "Browse moments from events, conversations, and episodes hosted by Stephanie George.",
+  path: "/gallery",
+});
 
 export default async function Gallery() {
   const initialImages = await client.fetch(getInitialGalleryImagesQuery, { limit: 12 }, { next: { tags: ['gallery'] } });
