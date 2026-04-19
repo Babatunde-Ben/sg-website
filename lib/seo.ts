@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
-const FALLBACK_BASE_URL = "https://stephanie-george.vercel.app";
+const FALLBACK_BASE_URL = "https://www.stephaniegeorge.co";
 
 export const SITE_NAME = "Stephanie George";
 export const SITE_DESCRIPTION =
-  "Stephanie George is a host, speaker, and podcast creator delivering truth with kindness through events, conversations, and practical insight.";
+  "Stephanie George is an event host, moderator, and speaker bringing depth, composure, and kindness to conferences, panels, and podcast conversations.";
 
 export function getBaseUrl() {
   const raw = process.env.NEXT_PUBLIC_BASE_URL?.trim();

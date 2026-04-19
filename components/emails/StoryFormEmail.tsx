@@ -9,7 +9,7 @@ interface StoryFormEmailProps {
 export function StoryFormEmail({
   name,
   story,
-  baseUrl = "https://stephanie-george.vercel.app/",
+  baseUrl = "https://www.stephaniegeorge.co",
 }: StoryFormEmailProps) {
   return (
     <html>
@@ -281,7 +281,7 @@ export function StoryFormEmail({
                             minute: "2-digit",
                           })}
                           <br />
-                          Via stephaniegeorge.com podcast page
+                          Via stephaniegeorge.co podcast page
                         </p>
                       </td>
                     </tr>

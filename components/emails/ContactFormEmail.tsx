@@ -15,7 +15,7 @@ export function ContactFormEmail({
   phone,
   organization,
   message,
-  baseUrl = "https://stephanie-george.vercel.app/",
+  baseUrl = "https://www.stephaniegeorge.co",
 }: ContactFormEmailProps) {
   return (
     <html>
@@ -400,7 +400,7 @@ export function ContactFormEmail({
                             minute: "2-digit",
                           })}
                           <br />
-                          Via stephaniegeorge.com contact form
+                          Via stephaniegeorge.co contact form
                         </p>
                       </td>
                     </tr>

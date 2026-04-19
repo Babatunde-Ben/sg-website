@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Stephanie George",
     short_name: "Stephanie George",
     description:
-      "Host, speaker, and podcast creator sharing truth and soul for the moments that matter.",
+      "Event host, moderator, and speaker bringing depth, composure, and kindness to conferences, panels, and podcast conversations.",
     start_url: "/",
     display: "standalone",
     background_color: "#150800",
