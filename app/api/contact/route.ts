@@ -1,4 +1,5 @@
 import { ContactFormEmail } from "@/components/emails/ContactFormEmail";
+import { ContactAutoReplyEmail } from "@/components/emails/ContactAutoReplyEmail";
 import { Resend } from "resend";
 import { z } from "zod";
 
@@ -40,6 +41,7 @@ export async function POST(request: Request) {
     const { data, error } = await resend.emails.send({
       from: emailFrom,
       to: [emailTo],
+      replyTo: parsed.data.email,
       subject: `New Contact Inquiry from ${parsed.data.name}`,
       react: ContactFormEmail({
         name: parsed.data.name,
@@ -57,6 +59,19 @@ export async function POST(request: Request) {
         { status: 500 },
       );
     }
+
+    await resend.emails
+      .send({
+        from: emailFrom,
+        to: [parsed.data.email],
+        replyTo: emailTo,
+        subject: "Thank you for reaching out",
+        react: ContactAutoReplyEmail({
+          name: parsed.data.name,
+          baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+        }),
+      })
+      .catch(() => null);
 
     return Response.json({
       ok: true,

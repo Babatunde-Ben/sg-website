@@ -422,7 +422,7 @@ ContactFormEmail.PreviewProps = {
   organization: "Acme Corp",
   message:
     "Hi Stephanie, I'd love to discuss having you speak at our upcoming conference in Lagos. We're expecting about 500 attendees and the theme is 'Stories That Shape Us'. Would you be available on June 15th?",
-  baseUrl: "http://localhost:3000",
+  baseUrl: "https://www.stephaniegeorge.co",
 } satisfies ContactFormEmailProps;
 
 export default ContactFormEmail;

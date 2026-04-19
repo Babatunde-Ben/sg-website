@@ -22,8 +22,8 @@ type FooterFormValues = z.infer<typeof footerFormSchema>;
 const quickNavlinks = [
   { label: "Home", href: ROUTES.HOME },
   { label: "About", href: ROUTES.ABOUT },
-  { label: "Speaking", href: ROUTES.CONTACT },
   { label: "Gallery", href: ROUTES.GALLERY },
+  { label: "Podcast", href: ROUTES.PODCAST },
 ];
 
 const legalLinks = [
@@ -93,7 +93,7 @@ export default function Footer({ contactInfo }: FooterProps) {
   }
 
   return (
-    <footer className="pb-12 section-padding-x xl:px-28 2xl:max-w-[1920px] 2xl:mx-auto">
+    <footer className="pb-12 section-padding-x xl:px-28 2xl:max-w-[1920px] 2xl:mx-auto bg-primary-500f bg-primary-600 py-14 sm:py-16 md:py-20 lg:py-32">
       <SectionReveal>
         <div className="mx-auto bg-white/4 px-6 py-12 text-center mb-16 md:px-14 lg:px-16">
           <h3 className="text-2xl md:text-3xl font-bold text-tertiary-400 mb-6 md:mb-10 lg:text-4xl">

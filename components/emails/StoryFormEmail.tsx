@@ -300,7 +300,7 @@ StoryFormEmail.PreviewProps = {
   name: "Jane Smith",
   story:
     "Three years ago, I lost everything I thought defined me — my career, my relationship, and my sense of purpose. But walking through that valley taught me something I never would have learned on the mountaintop: that our worth isn't tied to what we produce or who stands beside us. If my story could help even one person feel less alone in their own valley, I'd love to share it on the podcast.",
-  baseUrl: "http://localhost:3000",
+  baseUrl: "https://www.stephaniegeorge.co",
 } satisfies StoryFormEmailProps;
 
 export default StoryFormEmail;
