@@ -23,7 +23,7 @@ export const getAllTestimonialsQuery = defineQuery(`
 `);
 
 export const getGalleryImagesQuery = defineQuery(`
-  *[_type == "galleryImage"] | order(_createdAt desc) [0...$limit] {
+  *[_type == "galleryImage"] | order(orderRank) [0...$limit] {
     _id,
     altText,
     "imageUrl": image.asset->url,
@@ -31,25 +31,25 @@ export const getGalleryImagesQuery = defineQuery(`
   }
 `);
 
-// Pagination query for infinite scroll (cursor-based)
+// Pagination query for infinite scroll (cursor-based on orderRank)
 export const getMoreGalleryImagesQuery = defineQuery(`
-  *[_type == "galleryImage" && _createdAt < $lastCreatedAt] | order(_createdAt desc) [0...$limit] {
+  *[_type == "galleryImage" && orderRank > $lastOrderRank] | order(orderRank) [0...$limit] {
     _id,
     altText,
     "imageUrl": image.asset->url,
     "imageLqip": image.asset->metadata.lqip,
-    _createdAt
+    orderRank
   }
 `);
 
-// Initial gallery load with _createdAt
+// Initial gallery load with orderRank for pagination cursor
 export const getInitialGalleryImagesQuery = defineQuery(`
-  *[_type == "galleryImage"] | order(_createdAt desc) [0...$limit] {
+  *[_type == "galleryImage"] | order(orderRank) [0...$limit] {
     _id,
     altText,
     "imageUrl": image.asset->url,
     "imageLqip": image.asset->metadata.lqip,
-    _createdAt
+    orderRank
   }
 `);
 

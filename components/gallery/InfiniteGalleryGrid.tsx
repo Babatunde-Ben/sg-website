@@ -14,8 +14,7 @@ export interface GalleryImage {
   altText: string | null;
   imageUrl: string | null;
   imageLqip: string | null;
-
-  _createdAt: string;
+  orderRank: string;
 }
 
 type CollageSlot = {
@@ -64,7 +63,7 @@ export default function InfiniteGalleryGrid({ initialImages }: { initialImages: 
     if (!lastItem) return;
     
     try {
-      const newImages = await fetchMoreGalleryImages(lastItem._createdAt, 6);
+      const newImages = await fetchMoreGalleryImages(lastItem.orderRank, 6);
       if (newImages && newImages.length > 0) {
         setImages((prev) => [...prev, ...newImages]);
         if (newImages.length < 6) {
