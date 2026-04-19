@@ -9,7 +9,8 @@ export const SITE_DESCRIPTION =
 export function getBaseUrl() {
   const raw = process.env.NEXT_PUBLIC_BASE_URL?.trim();
   if (!raw) return FALLBACK_BASE_URL;
-  return raw.endsWith("/") ? raw.slice(0, -1) : raw;
+  const withProtocol = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+  return withProtocol.endsWith("/") ? withProtocol.slice(0, -1) : withProtocol;
 }
 
 export function absoluteUrl(path = "/") {
