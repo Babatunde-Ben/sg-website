@@ -156,16 +156,16 @@ export default function Footer({ contactInfo }: FooterProps) {
         <FadeInUp delay={0.2}>
           <div className="flex flex-col sm:flex-row gap-4 mt-2">
             <Link
-              href={`mailto:${contactInfo?.email || "StephGeorge@gmail.com"}`}
+              href={`mailto:${contactInfo?.email || "Stephgeorge28@gmail.com"}`}
               className="inline-flex items-center justify-center bg-primary-400/30 hover:bg-primary-400/40 text-tertiary-700 py-4 px-7 transition-colors duration-200"
             >
-              {contactInfo?.email || "StephGeorge@gmail.com"}
+              {contactInfo?.email || "Stephgeorge28@gmail.com"}
             </Link>
             <Link
               href={`tel:${contactInfo?.phone || "+12362342810"}`}
               className="inline-flex items-center justify-center bg-primary-400/30 hover:bg-primary-400/40 text-tertiary-700 py-4 px-7 transition-colors duration-200"
             >
-              {contactInfo?.phone || "+1(236)2342810"}
+              {contactInfo?.phone || "+1(236)234-2810"}
             </Link>
           </div>
         </FadeInUp>

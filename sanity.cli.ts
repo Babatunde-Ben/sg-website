@@ -5,5 +5,6 @@ const dataset = "production";
 
 export default defineCliConfig({
   api: { projectId, dataset },
-
+  /** Sanity-hosted Studio URL: https://stephanie-george.sanity.studio */
+  studioHost: "stephanie-george",
 });

@@ -175,7 +175,7 @@ export default function ContactClient({ contactInfo }: ContactClientProps) {
                   </span>
                 </p>
                 <p className="text-primary-300 sm:text-lg md:text-xl">
-                  {contactInfo?.phone || "+234 900 234 5678"}
+                  {contactInfo?.phone || "+1(236)234-2810"}
                 </p>
               </div>
             </StaggerItem>
@@ -189,7 +189,7 @@ export default function ContactClient({ contactInfo }: ContactClientProps) {
                   </span>
                 </p>
                 <p className="text-primary-300 sm:text-lg md:text-xl">
-                  {contactInfo?.email || "StephGeorge@gmail.com"}
+                  {contactInfo?.email || "Stephgeorge28@gmail.com"}
                 </p>
               </div>
             </StaggerItem>

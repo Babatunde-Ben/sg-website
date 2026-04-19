@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, useReducedMotion, useAnimationControls } from "motion/react";
 import HeroImage1 from "@/app/_assets/images/portrait-1.jpg";
 import HeroImage2 from "@/app/_assets/images/portrait-2.jpg";
-import HeroImage3 from "@/app/_assets/images/portrait-3.jpg";
+import HeroImage3 from "@/app/_assets/images/hero-portrait-3.jpg";
 import HollaWriting from "@/app/_assets/SVGs/holla.svg";
 import HeroPencil from "@/app/_assets/SVGs/hero-pencil.svg";
 import StephWriting from "@/app/_assets/SVGs/steph.svg";
@@ -25,7 +25,7 @@ const cards = [
   {
     src: HeroImage3,
     alt: "Stephanie George Hero 3",
-    objectPosition: "object-top",
+    objectPosition: "object-[50%_25%]",
   },
 ];
 

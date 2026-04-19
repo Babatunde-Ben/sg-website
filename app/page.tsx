@@ -9,20 +9,28 @@ import TestimonialsSection from "@/app/_components/home/TestimonialsSection";
 import { client } from "@/lib/sanity/client";
 import { getAllTestimonialsQuery, getStatsQuery } from "@/lib/sanity/queries";
 import { buildPageMetadata } from "@/lib/seo";
+import { ROUTES } from "@/lib/constant";
 
 export const revalidate = 3600;
 export const metadata: Metadata = buildPageMetadata({
   title: "Home",
   description:
     "Truth and soul for the moments that matter. Explore hosting, speaking, podcast episodes, and stories from Stephanie George.",
-  path: "/",
+  path: ROUTES.HOME,
 });
 
 export default async function Home() {
-  const allTestimonials = await client.fetch(getAllTestimonialsQuery, {}, { next: { tags: ['testimonial'] } });
-  const testimonials = allTestimonials.filter(t => t.category === 'room');
-  const statsData = await client.fetch(getStatsQuery, {}, { next: { tags: ['stats'] } });
-
+  const allTestimonials = await client.fetch(
+    getAllTestimonialsQuery,
+    {},
+    { next: { tags: ["testimonial"] } },
+  );
+  const testimonials = allTestimonials.filter((t) => t.category === "room");
+  const statsData = await client.fetch(
+    getStatsQuery,
+    {},
+    { next: { tags: ["stats"] } },
+  );
 
   return (
     <>

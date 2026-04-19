@@ -244,7 +244,7 @@ export type GetAllTestimonialsQueryResult = Array<{
   avatarLqip: string | null;
 }>;
 // Variable: getGalleryImagesQuery
-// Query: *[_type == "galleryImage"] | order(_createdAt desc) [0...$limit] {    _id,    altText,    "imageUrl": image.asset->url,    "imageLqip": image.asset->metadata.lqip  }
+// Query: *[_type == "galleryImage"] | order(orderRank) [0...$limit] {    _id,    altText,    "imageUrl": image.asset->url,    "imageLqip": image.asset->metadata.lqip  }
 export type GetGalleryImagesQueryResult = Array<{
   _id: string;
   altText: string | null;
@@ -252,22 +252,22 @@ export type GetGalleryImagesQueryResult = Array<{
   imageLqip: string | null;
 }>;
 // Variable: getMoreGalleryImagesQuery
-// Query: *[_type == "galleryImage" && _createdAt < $lastCreatedAt] | order(_createdAt desc) [0...$limit] {    _id,    altText,    "imageUrl": image.asset->url,    "imageLqip": image.asset->metadata.lqip,    _createdAt  }
+// Query: *[_type == "galleryImage" && orderRank > $lastOrderRank] | order(orderRank) [0...$limit] {    _id,    altText,    "imageUrl": image.asset->url,    "imageLqip": image.asset->metadata.lqip,    orderRank  }
 export type GetMoreGalleryImagesQueryResult = Array<{
   _id: string;
   altText: string | null;
   imageUrl: string | null;
   imageLqip: string | null;
-  _createdAt: string;
+  orderRank: null;
 }>;
 // Variable: getInitialGalleryImagesQuery
-// Query: *[_type == "galleryImage"] | order(_createdAt desc) [0...$limit] {    _id,    altText,    "imageUrl": image.asset->url,    "imageLqip": image.asset->metadata.lqip,    _createdAt  }
+// Query: *[_type == "galleryImage"] | order(orderRank) [0...$limit] {    _id,    altText,    "imageUrl": image.asset->url,    "imageLqip": image.asset->metadata.lqip,    orderRank  }
 export type GetInitialGalleryImagesQueryResult = Array<{
   _id: string;
   altText: string | null;
   imageUrl: string | null;
   imageLqip: string | null;
-  _createdAt: string;
+  orderRank: null;
 }>;
 // Variable: getContactInfoQuery
 // Query: *[_type == "contactInfo"][0] {    phone,    email,    socialLinks {      x,      instagram,      linkedin,      spotify,      soundcloud,      applePodcast,      youtubeMusic    }  }
@@ -298,9 +298,9 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "\n  *[_type == \"episode\"] | order(publishDate desc, _createdAt desc) {\n    _id,\n    title,\n    description,\n    listenUrl,\n    publishDate\n  }\n": GetEpisodesQueryResult;
     "\n  *[_type == \"testimonial\"] | order(_createdAt desc) {\n    _id,\n    quote,\n    author,\n    locationOrRole,\n    category,\n    \"avatarUrl\": avatar.asset->url,\n    \"avatarLqip\": avatar.asset->metadata.lqip\n  }\n": GetAllTestimonialsQueryResult;
-    "\n  *[_type == \"galleryImage\"] | order(_createdAt desc) [0...$limit] {\n    _id,\n    altText,\n    \"imageUrl\": image.asset->url,\n    \"imageLqip\": image.asset->metadata.lqip\n  }\n": GetGalleryImagesQueryResult;
-    "\n  *[_type == \"galleryImage\" && _createdAt < $lastCreatedAt] | order(_createdAt desc) [0...$limit] {\n    _id,\n    altText,\n    \"imageUrl\": image.asset->url,\n    \"imageLqip\": image.asset->metadata.lqip,\n    _createdAt\n  }\n": GetMoreGalleryImagesQueryResult;
-    "\n  *[_type == \"galleryImage\"] | order(_createdAt desc) [0...$limit] {\n    _id,\n    altText,\n    \"imageUrl\": image.asset->url,\n    \"imageLqip\": image.asset->metadata.lqip,\n    _createdAt\n  }\n": GetInitialGalleryImagesQueryResult;
+    "\n  *[_type == \"galleryImage\"] | order(orderRank) [0...$limit] {\n    _id,\n    altText,\n    \"imageUrl\": image.asset->url,\n    \"imageLqip\": image.asset->metadata.lqip\n  }\n": GetGalleryImagesQueryResult;
+    "\n  *[_type == \"galleryImage\" && orderRank > $lastOrderRank] | order(orderRank) [0...$limit] {\n    _id,\n    altText,\n    \"imageUrl\": image.asset->url,\n    \"imageLqip\": image.asset->metadata.lqip,\n    orderRank\n  }\n": GetMoreGalleryImagesQueryResult;
+    "\n  *[_type == \"galleryImage\"] | order(orderRank) [0...$limit] {\n    _id,\n    altText,\n    \"imageUrl\": image.asset->url,\n    \"imageLqip\": image.asset->metadata.lqip,\n    orderRank\n  }\n": GetInitialGalleryImagesQueryResult;
     "\n  *[_type == \"contactInfo\"][0] {\n    phone,\n    email,\n    socialLinks {\n      x,\n      instagram,\n      linkedin,\n      spotify,\n      soundcloud,\n      applePodcast,\n      youtubeMusic\n    }\n  }\n": GetContactInfoQueryResult;
     "\n  *[_type == \"stats\"][0] {\n    eventsWorldwide,\n    peopleImpacted,\n    yearsExperience\n  }\n": GetStatsQueryResult;
   }

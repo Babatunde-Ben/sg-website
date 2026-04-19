@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion, useAnimationControls } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import WithLoveWriting from "@/app/_assets/SVGs/with-love.svg";
 import HeroImage1 from "@/app/_assets/images/portrait-11.jpg";
 import HeroImage2 from "@/app/_assets/images/portrait-4.jpg";
@@ -50,23 +50,11 @@ export default function PodcastHeroSection() {
   const [pullDirection, setPullDirection] = useState(1);
   const isAnimatingRef = useRef(false);
 
-  // Reactive SVG asset animation
-  const withLoveControls = useAnimationControls();
-
   const shuffle = useCallback(() => {
     if (isAnimatingRef.current) return;
     isAnimatingRef.current = true;
 
     setPullingOut(true);
-
-    // Sympathetic SVG asset pulse
-    if (!shouldReduceMotion) {
-      withLoveControls.start({
-        scale: [1, 1.05, 1],
-        y: [0, -4, 0],
-        transition: { duration: 0.9, ease: "easeInOut" },
-      });
-    }
 
     setTimeout(() => {
       setPullingOut(false);
@@ -94,20 +82,34 @@ export default function PodcastHeroSection() {
         className="relative -translate-x-3 w-11/12 max-w-5xl h-72 sm:h-96 md:h-128 lg:h-[680px]"
         style={{ perspective: 1200 }}
       >
-        {/* SVG asset – animated in on load */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={withLoveControls}
-          onViewportEnter={() => withLoveControls.start({ opacity: 1, scale: 1 })}
-          transition={{
-            duration: 0.6,
-            delay: 0.5,
-            ease: [0.25, 0.1, 0.25, 1],
-          }}
-          className="absolute z-40 w-[30%] left-3 top-1/5 sm:left-6 md:left-10 md:top-3/12"
-        >
-          <WithLoveWriting className="text-primary-500 w-full" />
-        </motion.div>
+        {/* With Love — portrait-11 only; fades out during pull when that card leaves */}
+        {order[0] === 0 && (
+          <motion.div
+            key="with-love"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{
+              opacity: pullingOut ? 0 : 1,
+              scale: pullingOut ? 0.88 : 1,
+            }}
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : pullingOut
+                  ? {
+                      duration: PULLOUT_DURATION_S,
+                      ease: [0.4, 0, 0.2, 1],
+                    }
+                  : {
+                      duration: 0.6,
+                      delay: 0.5,
+                      ease: [0.25, 0.1, 0.25, 1],
+                    }
+            }
+            className="absolute z-40 w-[30%] left-3 top-1/5 sm:left-6 md:left-10 md:top-3/12 pointer-events-none"
+          >
+            <WithLoveWriting className="text-primary-500 w-full" />
+          </motion.div>
+        )}
 
         {/* Shuffling card stack */}
         {order.map((cardIndex, stackPos) => {

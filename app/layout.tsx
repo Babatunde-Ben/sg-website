@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { Albert_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/_components/shared/Navbar";
@@ -68,6 +69,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headerList = await headers();
+  const isStudio = headerList.get("x-sg-studio") === "1";
+
   const contactInfo = await client.fetch(getContactInfoQuery, {}, { next: { tags: ['contactInfo'] } });
   const sameAs = [
     contactInfo?.socialLinks?.x,
@@ -112,11 +116,17 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
-        <Navbar />
-        <main className="flex-1 overflow-hidden 2xl:max-w-[1536px] 2xl:mx-auto">
-          {children}
-        </main>
-        <Footer contactInfo={contactInfo} />
+        {isStudio ? (
+          <div className="flex min-h-screen flex-1 flex-col">{children}</div>
+        ) : (
+          <>
+            <Navbar />
+            <main className="flex-1 overflow-hidden 2xl:max-w-[1536px] 2xl:mx-auto">
+              {children}
+            </main>
+            <Footer contactInfo={contactInfo} />
+          </>
+        )}
       </body>
     </html>
   );
