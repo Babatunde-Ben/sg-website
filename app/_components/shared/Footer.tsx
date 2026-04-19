@@ -19,13 +19,17 @@ const footerFormSchema = z.object({
 
 type FooterFormValues = z.infer<typeof footerFormSchema>;
 
-const footerNavItems = [
+const quickNavlinks = [
   { label: "Home", href: ROUTES.HOME },
   { label: "About", href: ROUTES.ABOUT },
   { label: "Speaking", href: ROUTES.CONTACT },
   { label: "Gallery", href: ROUTES.GALLERY },
 ];
 
+const legalLinks = [
+  { label: "Privacy Policy", href: ROUTES.PRIVACY_POLICY },
+  { label: "Terms of Service", href: ROUTES.TERMS_OF_SERVICE },
+];
 export interface ContactInfo {
   phone?: string | null;
   email?: string | null;
@@ -166,8 +170,8 @@ export default function Footer({ contactInfo }: FooterProps) {
           </div>
         </FadeInUp>
         <FadeIn>
-          <ul className="flex flex-col items-center gap-10 md:flex-row md:gap-8 lg:justify-end ">
-            {footerNavItems.map((item) => (
+          <ul className="flex flex-col items-center gap-10 mb-10 md:mb-8 md:flex-row md:gap-8 lg:justify-end ">
+            {quickNavlinks.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
@@ -180,6 +184,27 @@ export default function Footer({ contactInfo }: FooterProps) {
           </ul>
         </FadeIn>
       </section>
+
+      <FadeIn>
+        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col items-center gap-4 text-sm text-tertiary-700 md:flex-row md:justify-between md:gap-6">
+          <p className="text-center md:text-left">
+            &copy; {new Date().getFullYear()} Stephanie George. All rights
+            reserved.
+          </p>
+          <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 md:justify-end">
+            {legalLinks.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="hover:text-tertiary-400 transition-colors"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </FadeIn>
 
       <SuccessModal
         open={isSuccessModalOpen}

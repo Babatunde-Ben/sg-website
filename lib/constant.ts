@@ -4,4 +4,6 @@ export const ROUTES = {
   GALLERY: "/gallery",
   PODCAST: "/podcast",
   CONTACT: "/contact",
+  PRIVACY_POLICY: "/privacy-policy",
+  TERMS_OF_SERVICE: "/terms-of-service",
 };
