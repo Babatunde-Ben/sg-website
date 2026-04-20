@@ -44,7 +44,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="absolute top-0 left-0 w-full z-50 py-8 section-padding-x flex items-center justify-between text-tertiary-50 bg-transparent 2xl:max-w-[1920px] 2xl:left-1/2 2xl:-translate-x-1/2">
+    <nav className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1536px] z-50 py-8 section-padding-x flex items-center justify-between text-tertiary-50 bg-transparent">
       <div
         style={{ boxShadow: "#150800ee 5px 0px 40px 50px" }}
         className="hidden lg:block absolute  w-full z-[-1] left-0 top-1/2 -translate-y-1/2"

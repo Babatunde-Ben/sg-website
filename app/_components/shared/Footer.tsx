@@ -93,7 +93,7 @@ export default function Footer({ contactInfo }: FooterProps) {
   }
 
   return (
-    <footer className="pb-12 section-padding-x xl:px-28 2xl:max-w-[1920px] 2xl:mx-auto bg-primary-500f bg-primary-600 py-14 sm:py-16 md:py-20 lg:py-32">
+    <footer className="pb-12 section-padding-x xl:px-28 w-full max-w-[1536px] mx-auto bg-primary-600 py-14 sm:py-16 md:py-20 lg:py-32">
       <SectionReveal>
         <div className="mx-auto bg-white/4 px-6 py-12 text-center mb-16 md:px-14 lg:px-16">
           <h3 className="text-2xl md:text-3xl font-bold text-tertiary-400 mb-6 md:mb-10 lg:text-4xl">
