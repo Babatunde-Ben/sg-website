@@ -1,4 +1,5 @@
 import { StoryFormEmail } from "@/components/emails/StoryFormEmail";
+import { parseNotificationRecipients } from "@/lib/notification-recipients";
 import { Resend } from "resend";
 import { z } from "zod";
 
@@ -23,10 +24,11 @@ export async function POST(request: Request) {
     );
   }
 
-  const emailTo = process.env.CONTACT_EMAIL_TO;
+  const emailToRaw = process.env.CONTACT_EMAIL_TO;
   const emailFrom = process.env.CONTACT_EMAIL_FROM;
+  const notificationTo = parseNotificationRecipients(emailToRaw);
 
-  if (!emailTo || !emailFrom) {
+  if (notificationTo.length === 0 || !emailFrom) {
     return Response.json(
       { ok: false, message: "Story submission is unavailable right now." },
       { status: 500 },
@@ -36,7 +38,7 @@ export async function POST(request: Request) {
   try {
     const { data, error } = await resend.emails.send({
       from: emailFrom,
-      to: [emailTo],
+      to: notificationTo,
       subject: `New Story Submission from ${parsed.data.name}`,
       react: StoryFormEmail({
         name: parsed.data.name,

@@ -1,5 +1,6 @@
 import { ContactFormEmail } from "@/components/emails/ContactFormEmail";
 import { ContactAutoReplyEmail } from "@/components/emails/ContactAutoReplyEmail";
+import { parseNotificationRecipients } from "@/lib/notification-recipients";
 import { Resend } from "resend";
 import { z } from "zod";
 
@@ -27,10 +28,11 @@ export async function POST(request: Request) {
     );
   }
 
-  const emailTo = process.env.CONTACT_EMAIL_TO;
+  const emailToRaw = process.env.CONTACT_EMAIL_TO;
   const emailFrom = process.env.CONTACT_EMAIL_FROM;
+  const notificationTo = parseNotificationRecipients(emailToRaw);
 
-  if (!emailTo || !emailFrom) {
+  if (notificationTo.length === 0 || !emailFrom) {
     return Response.json(
       { ok: false, message: "Contact form is unavailable right now." },
       { status: 500 },
@@ -40,7 +42,7 @@ export async function POST(request: Request) {
   try {
     const { data, error } = await resend.emails.send({
       from: emailFrom,
-      to: [emailTo],
+      to: notificationTo,
       replyTo: parsed.data.email,
       subject: `New Contact Inquiry from ${parsed.data.name}`,
       react: ContactFormEmail({
@@ -60,12 +62,19 @@ export async function POST(request: Request) {
       );
     }
 
+    const autoReplyFrom =
+      process.env.CONTACT_EMAIL_AUTOREPLY_FROM ?? emailFrom;
+
     await resend.emails
       .send({
-        from: emailFrom,
+        from: autoReplyFrom,
         to: [parsed.data.email],
-        replyTo: emailTo,
+        replyTo: autoReplyFrom,
         subject: "Thank you for reaching out",
+        headers: {
+          "Auto-Submitted": "auto-replied",
+          "X-Auto-Response-Suppress": "All",
+        },
         react: ContactAutoReplyEmail({
           name: parsed.data.name,
           baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
