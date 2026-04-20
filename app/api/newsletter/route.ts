@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { buildUnsubscribeUrl } from "@/lib/unsubscribe-token";
 
 const payloadSchema = z.object({
   email: z.email(),
@@ -28,19 +29,61 @@ export async function POST(request: Request) {
   }
 
   try {
+    const normalizedEmail = parsed.data.email.trim().toLowerCase();
+
+    let unsubscribeUrl: string;
+    try {
+      unsubscribeUrl = buildUnsubscribeUrl(normalizedEmail);
+    } catch (err) {
+      console.error(
+        "[newsletter] buildUnsubscribeUrl failed. Is NEWSLETTER_UNSUBSCRIBE_SECRET set?",
+        err,
+      );
+      return NextResponse.json(
+        {
+          ok: false,
+          message: "Newsletter is misconfigured. Please try again later.",
+        },
+        { status: 500 },
+      );
+    }
+
+    const payload = {
+      email: normalizedEmail,
+      timestamp: new Date().toISOString(),
+      unsubscribe_url: unsubscribeUrl,
+    };
+
+    console.log("[newsletter] Outgoing payload to Apps Script:", payload);
+    console.log("[newsletter] Webhook URL host:", new URL(webhookUrl).host);
+
     const webhookResponse = await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: parsed.data.email,
-        timestamp: new Date().toISOString(),
-      }),
+      body: JSON.stringify(payload),
       cache: "no-store",
+      redirect: "follow",
     });
 
-    const webhookResult = (await webhookResponse.json().catch(() => null)) as
+    console.log(
+      "[newsletter] Apps Script status:",
+      webhookResponse.status,
+      webhookResponse.statusText,
+    );
+
+    const rawBody = await webhookResponse.text();
+    console.log("[newsletter] Apps Script raw response:", rawBody);
+
+    let webhookResult:
       | { ok?: boolean; message?: string; code?: string }
-      | null;
+      | null = null;
+    try {
+      webhookResult = rawBody ? JSON.parse(rawBody) : null;
+    } catch {
+      console.warn(
+        "[newsletter] Apps Script response was not JSON (likely an HTML redirect or error page).",
+      );
+    }
 
     const duplicateError =
       webhookResult?.code === "DUPLICATE_EMAIL" ||
@@ -84,7 +127,8 @@ export async function POST(request: Request) {
       ok: true,
       message: "You are subscribed. Thank you for joining.",
     });
-  } catch {
+  } catch (err) {
+    console.error("[newsletter] Unexpected error:", err);
     return NextResponse.json(
       {
         ok: false,
