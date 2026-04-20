@@ -48,6 +48,7 @@ export async function POST(request: Request) {
     });
 
     if (error) {
+      console.error("[story] Resend send failed:", error);
       return Response.json(
         { ok: false, message: "Could not submit your story. Please try again." },
         { status: 500 },
@@ -59,7 +60,8 @@ export async function POST(request: Request) {
       message: "Your story has been submitted. Thank you for sharing.",
       id: data?.id,
     });
-  } catch {
+  } catch (err) {
+    console.error("[story] Unexpected error:", err);
     return Response.json(
       { ok: false, message: "Something went wrong. Please try again." },
       { status: 500 },
