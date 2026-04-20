@@ -56,6 +56,7 @@ export async function POST(request: Request) {
     });
 
     if (error) {
+      console.error("[contact] Resend send failed:", error);
       return Response.json(
         { ok: false, message: "Could not send your message. Please try again." },
         { status: 500 },
