@@ -6,7 +6,12 @@ import Navbar from "@/app/_components/shared/Navbar";
 import Footer from "@/app/_components/shared/Footer";
 import { client } from "@/lib/sanity/client";
 import { getContactInfoQuery } from "@/lib/sanity/queries";
-import { absoluteUrl, getBaseUrl, SITE_DESCRIPTION, SITE_NAME } from "@/lib/seo";
+import {
+  absoluteUrl,
+  getBaseUrl,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+} from "@/lib/seo";
 
 const albertSans = Albert_Sans({
   variable: "--font-albert-sans",
@@ -72,7 +77,11 @@ export default async function RootLayout({
   const headerList = await headers();
   const isStudio = headerList.get("x-sg-studio") === "1";
 
-  const contactInfo = await client.fetch(getContactInfoQuery, {}, { next: { tags: ['contactInfo'] } });
+  const contactInfo = await client.fetch(
+    getContactInfoQuery,
+    {},
+    { next: { tags: ["contactInfo"] } },
+  );
   const sameAs = [
     contactInfo?.socialLinks?.x,
     contactInfo?.socialLinks?.instagram,
@@ -121,7 +130,7 @@ export default async function RootLayout({
         ) : (
           <>
             <Navbar />
-            <main className="flex-1 overflow-hidden 2xl:max-w-[1536px] 2xl:mx-auto">
+            <main className="flex-1 overflow-hidden w-full max-w-[1636px] mx-auto">
               {children}
             </main>
             <Footer contactInfo={contactInfo} />
