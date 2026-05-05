@@ -9,7 +9,12 @@ import SuccessModal from "@/components/ui/success-modal";
 import { Button } from "@/components/ui/button";
 import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { ROUTES } from "@/lib/constant";
+import {
+  PUBLIC_CONTACT_EMAIL,
+  PUBLIC_CONTACT_PHONE_DISPLAY,
+  PUBLIC_CONTACT_PHONE_E164,
+  ROUTES,
+} from "@/lib/constant";
 import { Label } from "@/components/ui/label";
 import { SectionReveal, FadeInUp, FadeIn } from "@/components/motion";
 
@@ -156,16 +161,16 @@ export default function Footer({ contactInfo }: FooterProps) {
         <FadeInUp delay={0.2}>
           <div className="flex flex-col sm:flex-row gap-4 mt-2">
             <Link
-              href={`mailto:${contactInfo?.email || "Stephgeorge28@gmail.com"}`}
+              href={`mailto:${contactInfo?.email || PUBLIC_CONTACT_EMAIL}`}
               className="inline-flex items-center justify-center bg-primary-400/30 hover:bg-primary-400/40 text-tertiary-700 py-4 px-7 transition-colors duration-200"
             >
-              {contactInfo?.email || "Stephgeorge28@gmail.com"}
+              {contactInfo?.email || PUBLIC_CONTACT_EMAIL}
             </Link>
             <Link
-              href={`tel:${contactInfo?.phone || "+12362342810"}`}
+              href={`tel:${contactInfo?.phone || PUBLIC_CONTACT_PHONE_E164}`}
               className="inline-flex items-center justify-center bg-primary-400/30 hover:bg-primary-400/40 text-tertiary-700 py-4 px-7 transition-colors duration-200"
             >
-              {contactInfo?.phone || "+1(236)234-2810"}
+              {contactInfo?.phone || PUBLIC_CONTACT_PHONE_DISPLAY}
             </Link>
           </div>
         </FadeInUp>

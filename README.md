@@ -60,12 +60,13 @@ SANITY_REVALIDATE_SECRET="..."
 
 # Resend
 RESEND_API_KEY="re_..."
-CONTACT_EMAIL_TO="stephgeorge28@gmail.com,babatundeben110@gmail.com"
+CONTACT_EMAIL_TO="stephgeorge28@gmail.com"
 CONTACT_EMAIL_FROM="Stephanie George <hello@stephaniegeorge.co>"
 CONTACT_EMAIL_AUTOREPLY_FROM="Stephanie George <no-reply@stephaniegeorge.co>"
 
 # Newsletter (Google Apps Script webhook)
 GOOGLE_SHEETS_NEWSLETTER_WEBHOOK_URL="https://script.google.com/..."
+NEWSLETTER_UNSUBSCRIBE_SECRET="..."
 ```
 
 `CONTACT_EMAIL_TO` accepts a comma-separated list. Quotes and whitespace are stripped by the parser.
