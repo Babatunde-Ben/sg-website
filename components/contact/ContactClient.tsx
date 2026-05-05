@@ -29,6 +29,7 @@ import {
   StaggerItem,
 } from "@/components/motion";
 import { transitions } from "@/lib/motion";
+import { PUBLIC_CONTACT_EMAIL, PUBLIC_CONTACT_PHONE_DISPLAY } from "@/lib/constant";
 
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required."),
@@ -175,7 +176,7 @@ export default function ContactClient({ contactInfo }: ContactClientProps) {
                   </span>
                 </p>
                 <p className="text-primary-300 sm:text-lg md:text-xl">
-                  {contactInfo?.phone || "+1(236)234-2810"}
+                  {contactInfo?.phone || PUBLIC_CONTACT_PHONE_DISPLAY}
                 </p>
               </div>
             </StaggerItem>
@@ -189,7 +190,7 @@ export default function ContactClient({ contactInfo }: ContactClientProps) {
                   </span>
                 </p>
                 <p className="text-primary-300 sm:text-lg md:text-xl">
-                  {contactInfo?.email || "Stephgeorge28@gmail.com"}
+                  {contactInfo?.email || PUBLIC_CONTACT_EMAIL}
                 </p>
               </div>
             </StaggerItem>

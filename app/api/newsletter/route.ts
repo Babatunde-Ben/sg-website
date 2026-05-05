@@ -54,9 +54,6 @@ export async function POST(request: Request) {
       unsubscribe_url: unsubscribeUrl,
     };
 
-    console.log("[newsletter] Outgoing payload to Apps Script:", payload);
-    console.log("[newsletter] Webhook URL host:", new URL(webhookUrl).host);
-
     const webhookResponse = await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -65,14 +62,7 @@ export async function POST(request: Request) {
       redirect: "follow",
     });
 
-    console.log(
-      "[newsletter] Apps Script status:",
-      webhookResponse.status,
-      webhookResponse.statusText,
-    );
-
     const rawBody = await webhookResponse.text();
-    console.log("[newsletter] Apps Script raw response:", rawBody);
 
     let webhookResult:
       | { ok?: boolean; message?: string; code?: string }
@@ -80,8 +70,10 @@ export async function POST(request: Request) {
     try {
       webhookResult = rawBody ? JSON.parse(rawBody) : null;
     } catch {
-      console.warn(
-        "[newsletter] Apps Script response was not JSON (likely an HTML redirect or error page).",
+      console.error(
+        "[newsletter] Apps Script returned non-JSON response:",
+        webhookResponse.status,
+        rawBody.slice(0, 200),
       );
     }
 
@@ -102,6 +94,10 @@ export async function POST(request: Request) {
     }
 
     if (webhookResult?.ok === false) {
+      console.error(
+        "[newsletter] Apps Script returned error:",
+        webhookResult,
+      );
       return NextResponse.json(
         {
           ok: false,
@@ -114,6 +110,11 @@ export async function POST(request: Request) {
     }
 
     if (!webhookResponse.ok) {
+      console.error(
+        "[newsletter] Apps Script HTTP error:",
+        webhookResponse.status,
+        webhookResponse.statusText,
+      );
       return NextResponse.json(
         {
           ok: false,
