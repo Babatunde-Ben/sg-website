@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/lib/constant";
 import Image from "next/image";
 import NotFound404 from "@/app/_assets/images/404.png";
 import NotFoundBook from "@/app/_assets/images/not-found-book.png";
+
+export const metadata: Metadata = {
+  title: "404 – Page Not Found",
+  robots: { index: false, follow: false },
+};
 
 export default function NotFound() {
   return (

@@ -12,6 +12,7 @@ import {
   SITE_DESCRIPTION,
   SITE_NAME,
 } from "@/lib/seo";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const albertSans = Albert_Sans({
   variable: "--font-albert-sans",
@@ -137,6 +138,9 @@ export default async function RootLayout({
           </>
         )}
       </body>
+      {process.env.NODE_ENV === "production" && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
+      )}
     </html>
   );
 }

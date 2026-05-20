@@ -4,13 +4,14 @@ import { client } from "@/lib/sanity/client";
 import { getInitialGalleryImagesQuery } from "@/lib/sanity/queries";
 import InfiniteGalleryGrid from "@/components/gallery/InfiniteGalleryGrid";
 import { buildPageMetadata } from "@/lib/seo";
+import { ROUTES } from "@/lib/constant";
 
 export const revalidate = 3600;
 export const metadata: Metadata = buildPageMetadata({
   title: "Gallery",
   description:
     "Browse moments from events, conversations, and episodes hosted by Stephanie George.",
-  path: "/gallery",
+  path: ROUTES.GALLERY,
 });
 
 export default async function Gallery() {

@@ -15,7 +15,7 @@ export default function CTASection() {
 
   return (
     <SectionReveal>
-      <section className="section-padding-x mb-40 mt-20 md:mt-24 lg:mt-36 lg:mb-60">
+      <section className="section-padding-x mb-40 mt-20 md:mt-24 lg:mt-36">
         <div className="px-6 py-24 border border-primary-400  xl:py-28">
           <StaggerContainer className="max-w-5xl mx-auto text-center">
             <StaggerItem>
