@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     // We do a full sweep of the site's layout caching to guarantee freshness safely.
     // This is the most bulletproof way to revalidate across all routes.
     revalidatePath("/", "layout");
-    console.log(`[Revalidated] Full layout sweep triggered by _type: ${type}`);
+    console.error(`[Revalidated] Full layout sweep triggered by _type: ${type}`);
 
     return NextResponse.json({
       status: 200,

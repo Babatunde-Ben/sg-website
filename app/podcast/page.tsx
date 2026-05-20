@@ -9,13 +9,14 @@ import StoryFormSection from "@/components/podcast/StoryFormSection";
 import { client } from "@/lib/sanity/client";
 import { getEpisodesQuery, getAllTestimonialsQuery, getContactInfoQuery } from "@/lib/sanity/queries";
 import { buildPageMetadata } from "@/lib/seo";
+import { ROUTES } from "@/lib/constant";
 
 export const revalidate = 3600;
 export const metadata: Metadata = buildPageMetadata({
   title: "Podcast",
   description:
     "Listen to honest conversations on faith, money, relationships, and growth from Stephanie George.",
-  path: "/podcast",
+  path: ROUTES.PODCAST,
 });
 
 export default async function Podcast() {

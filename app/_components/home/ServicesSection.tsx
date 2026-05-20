@@ -7,11 +7,7 @@ import { useRouter } from "next/navigation";
 import HostingImage from "@/app/_assets/images/portrait-3.jpg";
 import SpeakingImage from "@/app/_assets/images/portrait-5.jpg";
 import PodcastImage from "@/app/_assets/images/portrait-1.jpg";
-import {
-  FadeInUp,
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/motion";
+import { FadeInUp, StaggerContainer, StaggerItem } from "@/components/motion";
 import { Separator } from "@/components/ui/separator";
 
 export default function ServicesSection() {
@@ -23,7 +19,7 @@ export default function ServicesSection() {
       description:
         "When I host, I am there to keep the room steady. I support your speakers and ensure the audience stays engaged, even when the schedule shifts or the plans change.",
       buttonText: "Learn About Hosting",
-      onClick: () => router.push(ROUTES.CONTACT),
+      onClick: () => router.push(ROUTES.ABOUT),
     },
     {
       image: SpeakingImage,
@@ -55,7 +51,8 @@ export default function ServicesSection() {
           <StaggerItem key={index}>
             <div className="flex flex-col h-full group">
               <div className="relative aspect-square w-full mb-2 overflow-hidden group-hover:opacity-90 transition-opacity">
-                <Image placeholder="blur"
+                <Image
+                  placeholder="blur"
                   src={item.image}
                   alt={item.title}
                   fill

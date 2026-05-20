@@ -9,6 +9,7 @@ import CTASection from "@/components/about/CTASection";
 import { client } from "@/lib/sanity/client";
 import { getAllTestimonialsQuery } from "@/lib/sanity/queries";
 import { buildPageMetadata } from "@/lib/seo";
+import { ROUTES } from "@/lib/constant";
 import Newsletter from "../_components/shared/Newsletter";
 
 export const revalidate = 3600;
@@ -16,7 +17,7 @@ export const metadata: Metadata = buildPageMetadata({
   title: "About",
   description:
     "Learn Stephanie George's story, speaking philosophy, and signature topics for meaningful hosting and audience connection.",
-  path: "/about",
+  path: ROUTES.ABOUT,
 });
 
 export default async function About() {
