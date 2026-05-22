@@ -138,9 +138,8 @@ export default async function RootLayout({
           </>
         )}
       </body>
-      {process.env.NODE_ENV === "production" && (
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
-      )}
+
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
     </html>
   );
 }
