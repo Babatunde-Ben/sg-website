@@ -43,7 +43,7 @@
 
   /* CUSTOM FONT */
   --font-albert: var(--font-albert-sans);
-
+  --font-gwathlyn: var(--font-gwathlyn);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-sidebar-ring: var(--sidebar-ring);
