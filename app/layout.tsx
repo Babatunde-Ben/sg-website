@@ -11,12 +11,20 @@ import {
   getBaseUrl,
   SITE_DESCRIPTION,
   SITE_NAME,
+  // } from "@/lib/seo";
 } from "@/lib/seo";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import localFont from "next/font/local";
 
 const albertSans = Albert_Sans({
   variable: "--font-albert-sans",
   subsets: ["latin"],
+});
+
+const gwathlyn = localFont({
+  src: "../lib/fonts/GwathlynDEMO-Regular-BF6554cf4b29fde.otf",
+  display: "swap",
+  variable: "--font-gwathlyn",
 });
 
 export const metadata: Metadata = {
@@ -116,7 +124,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${albertSans.variable} font-albert antialiased bg-primary-500 text-tertiary-50 flex flex-col min-h-screen`}
+        className={`${albertSans.variable} ${gwathlyn.variable} font-albert antialiased bg-primary-500 text-tertiary-50 flex flex-col min-h-screen`}
       >
         <script
           type="application/ld+json"
