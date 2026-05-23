@@ -98,7 +98,8 @@ describe("buildPageMetadata", () => {
     expect(meta.openGraph?.title).toBe("About");
     expect(meta.openGraph?.url).toBe("https://example.com/about");
     expect(meta.openGraph?.siteName).toBe(SITE_NAME);
-    expect(meta.openGraph?.type).toBe("website");
+    // Cast needed: Next.js OpenGraph is a discriminated union; type is valid at runtime
+    expect((meta.openGraph as { type?: string })?.type).toBe("website");
   });
 
   it("includes logo image in OG and Twitter", () => {
@@ -111,7 +112,8 @@ describe("buildPageMetadata", () => {
 
   it("sets Twitter card type", () => {
     const meta = buildPageMetadata(base);
-    expect(meta.twitter?.card).toBe("summary_large_image");
+    // Cast needed: Next.js Twitter is a discriminated union; card is valid at runtime
+    expect((meta.twitter as { card?: string })?.card).toBe("summary_large_image");
   });
 
   it("includes optional keywords when provided", () => {
