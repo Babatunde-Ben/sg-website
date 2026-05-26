@@ -9,6 +9,9 @@ import {
   ROUTES,
 } from "@/lib/constant";
 
+// Permanently static — content is hardcoded, no data fetching involved
+export const revalidate = false;
+
 export const metadata: Metadata = buildPageMetadata({
   title: "Privacy Policy",
   description: `How ${PUBLIC_BUSINESS_LEGAL_NAME} collects, uses, and protects your information.`,

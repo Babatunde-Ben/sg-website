@@ -11,7 +11,6 @@ import {
   getBaseUrl,
   SITE_DESCRIPTION,
   SITE_NAME,
-  // } from "@/lib/seo";
 } from "@/lib/seo";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import localFont from "next/font/local";

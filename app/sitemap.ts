@@ -17,10 +17,8 @@ const LOW_PRIORITY = new Set<(typeof routes)[number]>([
 ]);
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
   return routes.map((route) => ({
     url: absoluteUrl(route),
-    lastModified: now,
     changeFrequency: route === "/" ? "weekly" : "monthly",
     priority: route === "/" ? 1 : LOW_PRIORITY.has(route) ? 0.3 : 0.8,
   }));
