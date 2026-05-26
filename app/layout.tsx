@@ -60,13 +60,11 @@ export const metadata: Metadata = {
     url: absoluteUrl("/"),
     siteName: SITE_NAME,
     type: "website",
-    images: [{ url: absoluteUrl("/stephanie-george-logo.png") }],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
-    images: [absoluteUrl("/stephanie-george-logo.png")],
   },
   icons: {
     icon: "/logo.svg",
