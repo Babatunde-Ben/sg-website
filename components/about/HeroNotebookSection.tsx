@@ -10,9 +10,6 @@ import { motion, useReducedMotion } from "motion/react";
 import HeroPencil from "@/app/_assets/SVGs/hero-pencil.svg";
 import Heart from "@/app/_assets/SVGs/heart.svg";
 
-// ─── Text constants ───────────────────────────────────────────────────────────
-// Edit here — both desktop and mobile pick up the change automatically.
-
 const QUOTE =
   "A lot can go\nwrong at an\nevent. The host is\nthe one thing you\ncan't get wrong.";
 
@@ -23,8 +20,6 @@ const BIO_PARAGRAPHS = [
   "I work with organizations, conferences, leaders, and creators who care about the weight of words and what their audience actually walks away with.",
   "I know how to read a room — because I have been in a number of them across Africa, Europe and North America.",
 ];
-
-// ─── Typing animation helper ──────────────────────────────────────────────────
 
 const charVariants = {
   hidden: { opacity: 0 },
@@ -78,20 +73,6 @@ function TypingText({
     </motion.span>
   );
 }
-
-// ─── Component ───────────────────────────────────────────────────────────────
-//
-// Desktop timing (open book):
-//   Quote         76 chars × 0.035 s → starts 0.8 s,  ends ~3.5 s
-//   BIO_HEADING   22 chars × 0.008 s → starts 0.8 s,  ends ~1.0 s
-//   BIO_PARA[0]  215 chars × 0.008 s → starts 1.0 s,  ends ~2.7 s
-//   BIO_PARA[1]  143 chars × 0.008 s → starts 2.8 s,  ends ~3.9 s
-//   BIO_PARA[2]  108 chars × 0.008 s → starts 4.0 s,  ends ~4.9 s
-//
-// Mobile timing (two separate pages):
-//   Left  — Quote starts 0.6 s, stagger 0.025 → ends ~2.5 s
-//   Right — Heading starts 0.5 s (its own FadeIn context)
-//            Paragraphs chain sequentially from 0.8 s
 
 export default function HeroNotebookSection() {
   return (

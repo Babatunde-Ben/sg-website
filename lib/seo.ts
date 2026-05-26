@@ -42,13 +42,11 @@ export function buildPageMetadata({
       url,
       siteName: SITE_NAME,
       type: "website",
-      images: [{ url: absoluteUrl("/stephanie-george-logo.png") }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [absoluteUrl("/stephanie-george-logo.png")],
     },
   };
 }
