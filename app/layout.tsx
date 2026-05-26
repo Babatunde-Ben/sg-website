@@ -11,7 +11,6 @@ import {
   getBaseUrl,
   SITE_DESCRIPTION,
   SITE_NAME,
-  // } from "@/lib/seo";
 } from "@/lib/seo";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import localFont from "next/font/local";
@@ -65,11 +64,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
-  },
-  icons: {
-    icon: "/logo.svg",
-    shortcut: "/logo.svg",
-    apple: "/stephanie-george-logo.png",
   },
 };
 

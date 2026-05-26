@@ -8,6 +8,8 @@ import NotFoundBook from "@/app/_assets/images/not-found-book.png";
 
 export const metadata: Metadata = {
   title: "404 – Page Not Found",
+  description:
+    "The page you were looking for doesn't exist. Let's get you back on track.",
   robots: { index: false, follow: false },
 };
 

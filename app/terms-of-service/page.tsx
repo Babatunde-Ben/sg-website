@@ -11,6 +11,9 @@ import {
   ROUTES,
 } from "@/lib/constant";
 
+// Permanently static — content is hardcoded, no data fetching involved
+export const revalidate = false;
+
 export const metadata: Metadata = buildPageMetadata({
   title: "Terms of Service",
   description: `The terms and conditions that govern your use of ${PUBLIC_BUSINESS_LEGAL_NAME}'s website.`,

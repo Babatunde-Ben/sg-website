@@ -13,12 +13,16 @@ import { ROUTES } from "@/lib/constant";
 import Newsletter from "@/app/_components/shared/Newsletter";
 
 export const revalidate = 3600;
-export const metadata: Metadata = buildPageMetadata({
-  title: "Home",
-  description:
-    "Truth and soul for the moments that matter. Explore hosting, speaking, podcast episodes, and stories from Stephanie George.",
-  path: ROUTES.HOME,
-});
+export const metadata: Metadata = {
+  ...buildPageMetadata({
+    title: "Stephanie George",
+    description:
+      "Truth and soul for the moments that matter. Explore hosting, speaking, podcast episodes, and stories from Stephanie George.",
+    path: ROUTES.HOME,
+  }),
+  // Use absolute title on the homepage to bypass the "%s | Stephanie George" template
+  title: { absolute: "Stephanie George" },
+};
 
 export default async function Home() {
   const allTestimonials = await client.fetch(

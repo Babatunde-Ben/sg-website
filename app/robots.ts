@@ -7,10 +7,10 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/studio", "/studio/*", "/api/*", "/unsubscribe"],
+        // "/studio" already blocks all sub-paths; "/api/" blocks all API routes
+        disallow: ["/studio/", "/api/", "/unsubscribe"],
       },
     ],
     sitemap: absoluteUrl("/sitemap.xml"),
-    host: absoluteUrl("/"),
   };
 }
