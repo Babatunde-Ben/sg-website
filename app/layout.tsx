@@ -66,11 +66,6 @@ export const metadata: Metadata = {
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
   },
-  icons: {
-    icon: "/logo.svg",
-    shortcut: "/logo.svg",
-    apple: "/stephanie-george-logo.png",
-  },
 };
 
 export const viewport: Viewport = {
