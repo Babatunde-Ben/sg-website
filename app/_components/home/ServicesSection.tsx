@@ -6,7 +6,7 @@ import { ROUTES } from "@/lib/constant";
 import { useRouter } from "next/navigation";
 import HostingImage from "@/app/_assets/images/portrait-3.jpg";
 import SpeakingImage from "@/app/_assets/images/portrait-5.jpg";
-import PodcastImage from "@/app/_assets/images/portrait-1.jpg";
+import PodcastImage from "@/app/_assets/images/portrait-11.jpg";
 import { FadeInUp, StaggerContainer, StaggerItem } from "@/components/motion";
 import { Separator } from "@/components/ui/separator";
 
@@ -25,7 +25,7 @@ export default function ServicesSection() {
       image: SpeakingImage,
       title: "Speaking",
       description:
-        "I help your audience put words to what they have been feeling but couldn't name. My sessions explore communication and leadership in a way that is honest and immediately usable in real life.",
+        "I help audiences put words to what they have been feeling but couldn't name. I speak on communication and leadership in a way that is honest, grounded, and immediately applicable in real life.",
       buttonText: "Learn About Speaking",
       onClick: () => router.push(ROUTES.ABOUT),
     },
@@ -33,7 +33,7 @@ export default function ServicesSection() {
       image: PodcastImage,
       title: "The Podcast",
       description:
-        "Real conversations about faith, money, relationships, and growth. It is practical. It is authentic.  And yes, there's usually laughter. ",
+        "Real conversations about faith, money, relationships, and growth—grounded in honesty, practical insight, and the kind of laughter that makes it all feel like home.",
       buttonText: "Listen",
       onClick: () => router.push(ROUTES.PODCAST),
     },

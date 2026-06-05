@@ -76,11 +76,14 @@ function TypingText({
 
 export default function HeroNotebookSection() {
   return (
-    <section
-      className="section-padding-x pb-16 pt-24 md:pb-24 md:pt-32 mx-auto flex justify-center bg-cover bg-center relative mask-b-from-90% md:mask-b-from-50%"
-      style={{ backgroundImage: `url(${AboutBackgroundImage.src})` }}
-    >
-      <div className="absolute inset-0 bg-linear-to-t from-primary-500 from-5% via-transparent to-transparent z-10" />
+    <section className="section-padding-x pb-16 pt-32 md:pb-24 mx-auto flex justify-center relative mask-b-from-90% md:mask-b-from-50%">
+      {/* Background image — large screens only; mobile uses the global layout background */}
+      <div
+        className="absolute inset-0 z-0 hidden md:block bg-cover bg-center"
+        style={{ backgroundImage: `url(${AboutBackgroundImage.src})` }}
+      />
+
+      <div className="absolute inset-0 bg-linear-to-t from-primary-500 from-5% via-transparent to-transparent z-10 hidden md:block" />
 
       {/* ── Desktop: open book ──────────────────────────────────────────── */}
       <ScaleIn delay={0.2} className="relative z-20 hidden md:block">
