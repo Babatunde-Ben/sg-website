@@ -98,7 +98,7 @@ export default function InfiniteGalleryGrid({ initialImages }: { initialImages: 
 
   return (
     <>
-      <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto mb-16 md:mb-10 pb-10">
+      <section className="isolate px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto mb-16 md:mb-10 pb-10">
         {imageChunks.map((chunk, chunkIndex) => (
           <div
             key={`gallery-chunk-${chunkIndex}`}
