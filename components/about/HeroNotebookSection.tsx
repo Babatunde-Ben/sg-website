@@ -77,13 +77,13 @@ function TypingText({
 export default function HeroNotebookSection() {
   return (
     <section className="section-padding-x pb-16 pt-32 md:pb-24 mx-auto flex justify-center relative mask-b-from-90% md:mask-b-from-50%">
-      {/* Background image — large screens only; mobile uses the global layout background */}
+      {/* Background image — shifted 120px left on mobile, centered on larger screens */}
       <div
-        className="absolute inset-0 z-0 hidden md:block bg-cover bg-center"
+        className="absolute inset-0 z-0 bg-cover bg-[position:calc(50%_-_-320px)_center] md:bg-center"
         style={{ backgroundImage: `url(${AboutBackgroundImage.src})` }}
       />
 
-      <div className="absolute inset-0 bg-linear-to-t from-primary-500 from-5% via-transparent to-transparent z-10 hidden md:block" />
+      <div className="absolute inset-0 bg-linear-to-t from-primary-500 from-5% via-transparent to-transparent z-10" />
 
       {/* ── Desktop: open book ──────────────────────────────────────────── */}
       <ScaleIn delay={0.2} className="relative z-20 hidden md:block">

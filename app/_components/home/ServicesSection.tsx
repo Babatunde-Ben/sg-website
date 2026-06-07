@@ -39,7 +39,7 @@ export default function ServicesSection() {
     },
   ];
   return (
-    <section className="pt-24 md:pt-32 section-padding-x">
+    <section className="pt-16 md:pt-32 section-padding-x">
       <FadeInUp>
         <h3 className="text-3xl text-center font-bold text-tertiary-50 mb-12 sm:text-4xl md:mb-14 md:text-5xl lg:text-6xl">
           How We Can Work Together.
