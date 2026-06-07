@@ -110,11 +110,11 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative pt-40 pb-10 section-padding-x flex flex-col items-center justify-center bg-cover bg-center lg:pb-28"
+      className="relative pt-40 pb-14 section-padding-x flex flex-col items-center justify-center bg-cover bg-center lg:pb-28"
       style={{ backgroundImage: `url(${HeroBackgroundImage.src})` }}
     >
       <div
-        className="relative -translate-x-3 w-11/12 max-w-5xl h-72 sm:h-96 md:h-128 lg:h-[680px]"
+        className="relative -translate-x-3 w-11/12 max-w-5xl h-76 sm:h-96 md:h-128 lg:h-[680px]"
         style={{ perspective: 1200 }}
       >
         {/* SVG assets – animated in sequentially once */}
@@ -127,7 +127,7 @@ export default function HeroSection() {
             delay: 0.5,
             ease: [0.25, 0.1, 0.25, 1],
           }}
-          className="absolute z-40 w-1/3 left-3 top-2/5 sm:left-6 md:left-10 md:top-3/12"
+          className="absolute z-40 w-1/3 left-3 top-[28%] sm:left-6 md:left-10 md:top-3/12"
         >
           <HollaWriting className="w-full" />
         </motion.div>
@@ -141,7 +141,7 @@ export default function HeroSection() {
             delay: 0.8,
             ease: [0.25, 0.1, 0.25, 1],
           }}
-          className="absolute z-40 w-2/15 right-4 bottom-10 sm:right-6 md:right-10 md:bottom-4 lg:right-15 lg:w-2/18"
+          className="absolute z-40 w-2/15 right-3 bottom-10 sm:right-6 md:right-10 md:bottom-4 lg:right-15 lg:w-2/18"
         >
           <StephWriting className="w-full" />
         </motion.div>

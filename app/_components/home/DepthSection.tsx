@@ -9,7 +9,7 @@ export default function DepthSection() {
     "You care about what people do after they leave the venue, not just how the event looked while it was happening.",
   ];
   return (
-    <section className="pt-32 pb-10 section-padding-x lg:pt-44">
+    <section className="pt-40 pb-10 section-padding-x lg:pt-44">
       <div className="max-w-5xl mx-auto text-center">
         <FadeInUp>
           <h3 className="text-3xl font-bold text-tertiary-50 mb-8 sm:text-4xl md:mb-10 md:text-5xl lg:text-6xl">

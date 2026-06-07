@@ -43,8 +43,10 @@ const collagePattern: CollageSlot[] = [
 export default function InfiniteGalleryGrid({ initialImages }: { initialImages: GalleryImage[] }) {
   const shouldReduceMotion = useReducedMotion();
   const [images, setImages] = useState<GalleryImage[]>(initialImages);
-  const [hasMore, setHasMore] = useState(initialImages.length >= 6); 
+  const [hasMore, setHasMore] = useState(initialImages.length >= 6);
   const [isLoading, setIsLoading] = useState(false);
+  // Which image is "brought forward" via tap (the mobile equivalent of hover)
+  const [activeId, setActiveId] = useState<string | null>(null);
   
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -101,7 +103,7 @@ export default function InfiniteGalleryGrid({ initialImages }: { initialImages: 
           <div
             key={`gallery-chunk-${chunkIndex}`}
             className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-start justify-items-center ${
-              chunkIndex > 0 ? "-mt-28 md:-mt-44" : ""
+              chunkIndex > 0 ? "-mt-[64px] sm:-mt-[48px] lg:-mt-44" : ""
             }`}
           >
             {chunk.map((image, index) => {
@@ -112,11 +114,42 @@ export default function InfiniteGalleryGrid({ initialImages }: { initialImages: 
 
               const finalRotate = pattern.rotate;
 
+              // Real vertical overlap for small screens (the translate-* classes
+              // below are overridden by Framer Motion's transform, so overlap is
+              // done with negative margins which motion does not touch).
+              // 1-col (base): every item after the first overlaps the one above.
+              // 2-col (sm → lg): every item after the first row overlaps.
+              // 3-col (lg+): reset to 0 to preserve the desktop layout.
+              const overlapClass =
+                index === 0
+                  ? "mt-0"
+                  : index === 1
+                    ? "-mt-[64px] sm:mt-0"
+                    : "-mt-[64px] sm:-mt-[48px] lg:mt-0";
+
+              // Cards carrying a sticker (dragonfly / heart) always sit above
+              // everything — including a brought-forward card (z 60) — so the
+              // sticker is never covered by an overlapping image.
+              const baseZ = pattern.sticker
+                ? 70
+                : Number(pattern.z.replace("z-", "")) || 10;
+              const activeZ = pattern.sticker ? 70 : 60;
+              const isActive = activeId === image._id;
+
               return (
                 <motion.div
                   key={image._id}
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
+                  // Resting vs "brought forward" (tap on mobile). Hover handles
+                  // the same effect on desktop via whileHover below.
+                  animate={
+                    shouldReduceMotion
+                      ? undefined
+                      : isActive
+                        ? { scale: 1.05, rotate: 0, zIndex: activeZ }
+                        : { scale: 1, rotate: finalRotate, zIndex: baseZ }
+                  }
                   whileHover={
                     shouldReduceMotion
                       ? undefined
@@ -127,13 +160,20 @@ export default function InfiniteGalleryGrid({ initialImages }: { initialImages: 
                           transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
                         }
                   }
+                  onTap={() =>
+                    setActiveId((prev) => (prev === image._id ? null : image._id))
+                  }
                   viewport={viewportOnce}
                   transition={{
                     opacity: { ...transitions.default, delay: shouldReduceMotion ? 0 : staggerDelay },
                     default: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
                   }}
-                  style={{ rotate: finalRotate }}
-                  className={`relative w-full bg-[#FAF8F5] p-3 shadow-[0_20px_40px_rgba(0,0,0,0.5)] ${pattern.transform} ${pattern.z}`}
+                  style={
+                    shouldReduceMotion
+                      ? { rotate: finalRotate, zIndex: baseZ }
+                      : undefined
+                  }
+                  className={`relative w-full cursor-pointer bg-[#FAF8F5] p-3 shadow-[0_20px_40px_rgba(0,0,0,0.5)] ${overlapClass} ${pattern.transform} ${pattern.z}`}
                 >
                   <div className="relative w-full aspect-square bg-tertiary-200 overflow-hidden">
                     <Image
