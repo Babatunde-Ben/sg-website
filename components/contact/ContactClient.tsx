@@ -20,7 +20,7 @@ import Globe from "@/app/_assets/SVGs/earth.svg";
 import Link from "next/link";
 import LinkedIn from "@/app/_assets/SVGs/linkedin.svg";
 import Instagram from "@/app/_assets/SVGs/instagram.svg";
-import X from "@/app/_assets/SVGs/x.svg";
+// import X from "@/app/_assets/SVGs/x.svg"; // hidden from frontend (see socialLinks below)
 import {
   FadeInUp,
   FadeIn,
@@ -67,12 +67,14 @@ export default function ContactClient({ contactInfo }: ContactClientProps) {
   );
 
   const socialLinks = [];
-  if (contactInfo?.socialLinks?.x)
-    socialLinks.push({
-      href: contactInfo.socialLinks.x,
-      icon: X,
-      label: "X (formerly Twitter)",
-    });
+  // X (formerly Twitter) intentionally hidden from the frontend.
+  // The value is kept in Sanity; re-enable by uncommenting the block below.
+  // if (contactInfo?.socialLinks?.x)
+  //   socialLinks.push({
+  //     href: contactInfo.socialLinks.x,
+  //     icon: X,
+  //     label: "X (formerly Twitter)",
+  //   });
   if (contactInfo?.socialLinks?.instagram)
     socialLinks.push({
       href: contactInfo.socialLinks.instagram,
