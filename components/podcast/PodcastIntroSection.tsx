@@ -14,7 +14,7 @@ import {
 export default function PodcastIntroSection() {
   return (
     <section className="section-padding-x my-20 md:my-24 lg:my-32f">
-      <Separator className="my-20 bg-white/20" />
+      <Separator className="my-16 bg-white/20" />
 
       <SectionReveal>
         <div className="border border-primary-400 px-4 py-16 sm:px-10 md:px-12 lg:py-20 lg:px-16 grid grid-cols-1 lg:grid-cols-2 gap-16 ">
@@ -27,9 +27,9 @@ export default function PodcastIntroSection() {
             <StaggerItem>
               <p className="text-tertiary-600 sm:text-lg md:text-xl mb-6 lg:mb-8">
                 Faith with questions. Money with honesty. Relationships with
-                complexity. Love with imperfections. This is a space to slow down,
-                ask hard questions, and find the courage to be real—with yourself,
-                with others, and with God.
+                complexity. Love with imperfections. This is a space to slow
+                down, ask hard questions, and find the courage to be real—with
+                yourself, with others, and with God.
               </p>
             </StaggerItem>
             <StaggerItem>
@@ -40,7 +40,8 @@ export default function PodcastIntroSection() {
           </StaggerContainer>
 
           <ScaleIn className="group relative w-full min-h-56 sm:min-h-72 md:min-h-80 h-full overflow-hidden">
-            <Image placeholder="blur"
+            <Image
+              placeholder="blur"
               src={PodcastImage}
               alt="Stephanie in studio"
               fill
