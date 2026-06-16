@@ -77,7 +77,7 @@ export default function PodcastHeroSection() {
   }, [shuffle, shouldReduceMotion]);
 
   return (
-    <section className="relative pt-40 pb-10 section-padding-x flex flex-col items-center justify-center bg-primary-500 lg:pb-28">
+    <section className="relative pt-40 section-padding-x flex flex-col items-center justify-center bg-primary-500 lg:pb-28">
       <div
         className="relative -translate-x-3 w-11/12 max-w-5xl h-76 sm:h-96 md:h-128 lg:h-[680px]"
         style={{ perspective: 1200 }}

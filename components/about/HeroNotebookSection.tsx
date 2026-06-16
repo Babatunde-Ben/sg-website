@@ -2,10 +2,13 @@
 
 import Image from "next/image";
 import AboutBookImage from "@/app/_assets/images/empty-book.png";
-import LeftPageImage from "@/app/_assets/images/left-page.png";
-import RightPageImage from "@/app/_assets/images/right-page.png";
 import AboutBackgroundImage from "@/app/_assets/images/about-background.jpg";
-import { ScaleIn, FadeInUp } from "@/components/motion";
+import { ScaleIn } from "@/components/motion";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 import { motion, useReducedMotion } from "motion/react";
 import HeroPencil from "@/app/_assets/SVGs/hero-pencil.svg";
 import Heart from "@/app/_assets/SVGs/heart.svg";
@@ -79,7 +82,7 @@ export default function HeroNotebookSection() {
     <section className="section-padding-x pb-16 pt-32 md:pb-24 mx-auto flex justify-center relative mask-b-from-90% md:mask-b-from-50%">
       {/* Background image — shifted 120px left on mobile, centered on larger screens */}
       <div
-        className="absolute inset-0 z-0 bg-cover bg-[position:calc(50%_-_-320px)_center] md:bg-center"
+        className="absolute inset-0 z-0 bg-cover bg-[position:calc(50%_-_-250px)_center] md:bg-center"
         style={{ backgroundImage: `url(${AboutBackgroundImage.src})` }}
       />
 
@@ -143,83 +146,92 @@ export default function HeroNotebookSection() {
         </div>
       </ScaleIn>
 
-      {/* ── Mobile: two stacked pages ────────────────────────────────────── */}
-      <div className="relative z-20 flex flex-col w-full md:hidden select-none">
-        {/* Left page — quote */}
-        <ScaleIn delay={0.2} className="relative w-full mb-4">
-          <div className="relative w-full">
-            <Image
-              src={LeftPageImage}
-              alt="Left page"
-              placeholder="blur"
-              className="w-full h-auto"
-            />
-
-            {/* Heart */}
-            <span className="absolute text-primary-400 right-[27%] top-[10%]">
-              <Heart className="w-9" />
-            </span>
-
-            {/* Quote — left edge starts after spine (~14%), capped to stay on page */}
-            <p className="absolute font-gwathlyn text-primary-500 text-5xl left-[22%] top-[25%] sm:text-7xl">
-              <TypingText text={QUOTE} delay={0.6} stagger={0.025} />
-            </p>
-
-            {/* Pencil */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: "0%" }}
-              transition={{
-                duration: 0.8,
-                delay: 1.0,
-                ease: [0.25, 0.1, 0.25, 1],
-              }}
-              className="absolute z-40 rotate-90 w-[70%] left-[14%] -bottom-24"
+      {/* ── Mobile: swipeable pages (first page full, next page peeking) ──── */}
+      <div className="relative z-20 w-full md:hidden select-none">
+        <Carousel
+          opts={{ align: "start", containScroll: "trimSnaps" }}
+          className="w-full"
+        >
+          <CarouselContent className="relative ml-0">
+            {/* One continuous open book (the desktop two-page image) spanning
+                both pages. The two empty CarouselItems below are just snap
+                anchors so swiping pans from the left page to the right page of
+                the SAME book. */}
+            <ScaleIn
+              delay={0.2}
+              className="pointer-events-none absolute top-0 left-0 z-10 w-[180%]"
             >
-              <HeroPencil className="w-full" />
-            </motion.div>
-          </div>
-        </ScaleIn>
+              <div className="relative w-full">
+                <Image
+                  src={AboutBookImage}
+                  alt="Open book"
+                  placeholder="blur"
+                  className="w-full h-auto"
+                />
 
-        {/* Right page — bio */}
-        <FadeInUp delay={0.3} className="relative w-full">
-          <div className="relative w-full">
-            <Image
-              src={RightPageImage}
-              alt="Right page"
-              placeholder="blur"
-              className="w-full h-auto"
-            />
+                {/* Heart — left page */}
+                <span className="absolute text-primary-400 left-[27%] top-[12%]">
+                  <Heart className="w-10" />
+                </span>
 
-            {/* Text — right edge stops before spine (~84%) */}
-            <div className="absolute font-gwathlyn text-primary-500 text-xl leading-[22px] space-y-6 left-[10%] top-[10%] w-[74%] sm:text-4xl sm:leading-[40px] sm:space-y-8">
-              <p>
-                <TypingText text={BIO_HEADING} delay={0.5} stagger={0.012} />
-              </p>
-              <p>
-                <TypingText
-                  text={BIO_PARAGRAPHS[0]}
-                  delay={0.8}
-                  stagger={0.007}
-                />
-              </p>
-              <p>
-                <TypingText
-                  text={BIO_PARAGRAPHS[1]}
-                  delay={2.4}
-                  stagger={0.007}
-                />
-              </p>
-              <p>
-                <TypingText
-                  text={BIO_PARAGRAPHS[2]}
-                  delay={3.5}
-                  stagger={0.007}
-                />
-              </p>
-            </div>
-          </div>
-        </FadeInUp>
+                {/* Quote — left page */}
+                <p className="absolute font-gwathlyn text-primary-500 text-5xl leading-[40px] left-[10%] top-[28%] w-[36%]">
+                  <TypingText text={QUOTE} delay={0.6} stagger={0.025} />
+                </p>
+
+                {/* Bio — right page */}
+                <div className="absolute font-gwathlyn text-primary-500 text-2xl leading-[20px] space-y-4 left-[55%] top-[12%] w-[38%]">
+                  <p>
+                    <TypingText
+                      text={BIO_HEADING}
+                      delay={0.5}
+                      stagger={0.012}
+                    />
+                  </p>
+                  <p>
+                    <TypingText
+                      text={BIO_PARAGRAPHS[0]}
+                      delay={0.8}
+                      stagger={0.007}
+                    />
+                  </p>
+                  <p>
+                    <TypingText
+                      text={BIO_PARAGRAPHS[1]}
+                      delay={2.4}
+                      stagger={0.007}
+                    />
+                  </p>
+                  <p>
+                    <TypingText
+                      text={BIO_PARAGRAPHS[2]}
+                      delay={3.5}
+                      stagger={0.007}
+                    />
+                  </p>
+                </div>
+
+                {/* Pencil — left page */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: "0%" }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 1.0,
+                    ease: [0.25, 0.1, 0.25, 1],
+                  }}
+                  className="absolute z-40 rotate-[95deg] w-[27%] left-[20%] -bottom-[9%]"
+                >
+                  <HeroPencil className="w-full" />
+                </motion.div>
+              </div>
+            </ScaleIn>
+
+            {/* Snap anchors — one per page (transparent) */}
+            <CarouselItem className="basis-[90%] pl-0 aspect-[631/789]" />
+            <CarouselItem className="basis-[90%] pl-0 aspect-[631/789]" />
+          </CarouselContent>
+        </Carousel>
       </div>
     </section>
   );
