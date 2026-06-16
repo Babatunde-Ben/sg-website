@@ -6,18 +6,26 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/components/motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function BackstorySection() {
+  // On mobile, reveal on mount (the scroll observer can miss its initial
+  // in-view callback there); on desktop keep the scroll-triggered reveal.
+  const isMobile = useIsMobile();
+
   return (
-    <SectionReveal>
+    <SectionReveal playOnMount={isMobile}>
       <section className="section-padding-x">
         <div className="px-6 sm:px-10 bg-primary-400 lg:px-14 py-18">
-          <FadeInUp>
+          <FadeInUp playOnMount={isMobile}>
             <h2 className="mb-6 text-2xl font-bold md:text-3xl text-tertiary-50">
               A little backstory
             </h2>
           </FadeInUp>
-          <StaggerContainer className="space-y-6 text-tertiary-600 sm:text-lg md:text-xl">
+          <StaggerContainer
+            playOnMount={isMobile}
+            className="space-y-6 text-tertiary-600 sm:text-lg md:text-xl"
+          >
             <StaggerItem>
               <p>
                 As a child, I would stand in front of a mirror for hours,

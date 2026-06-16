@@ -12,12 +12,17 @@ interface SectionRevealProps {
   children: React.ReactNode;
   className?: string;
   delay?: number;
+  /** Reveal on mount instead of on scroll-into-view. Use for the first
+   *  above-the-fold section so it never stays hidden when the
+   *  IntersectionObserver misses its initial in-view callback (mobile Safari). */
+  playOnMount?: boolean;
 }
 
 export default function SectionReveal({
   children,
   className,
   delay = 0,
+  playOnMount = false,
 }: SectionRevealProps) {
   const shouldReduceMotion = useReducedMotion();
   const variants = shouldReduceMotion ? fadeInUpReduced : fadeInUp;
@@ -26,8 +31,9 @@ export default function SectionReveal({
     <motion.div
       variants={variants}
       initial="hidden"
-      whileInView="visible"
-      viewport={viewportOnceSmall}
+      {...(playOnMount
+        ? { animate: "visible" }
+        : { whileInView: "visible", viewport: viewportOnceSmall })}
       transition={{ ...transitions.slow, delay }}
       className={className}
     >

@@ -11,12 +11,15 @@ interface StaggerContainerProps {
   children: React.ReactNode;
   staggerDelay?: number;
   className?: string;
+  /** Reveal on mount instead of on scroll-into-view (for first-paint content). */
+  playOnMount?: boolean;
 }
 
 export default function StaggerContainer({
   children,
   staggerDelay,
   className,
+  playOnMount = false,
 }: StaggerContainerProps) {
   const shouldReduceMotion = useReducedMotion();
   const baseVariants = shouldReduceMotion
@@ -39,8 +42,9 @@ export default function StaggerContainer({
     <motion.div
       variants={variants}
       initial="hidden"
-      whileInView="visible"
-      viewport={viewportOnce}
+      {...(playOnMount
+        ? { animate: "visible" }
+        : { whileInView: "visible", viewport: viewportOnce })}
       className={className}
     >
       {children}

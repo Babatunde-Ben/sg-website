@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import AboutBookImage from "@/app/_assets/images/empty-book.png";
 import AboutBackgroundImage from "@/app/_assets/images/about-background.jpg";
@@ -8,6 +9,7 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import { motion, useReducedMotion } from "motion/react";
 import HeroPencil from "@/app/_assets/SVGs/hero-pencil.svg";
@@ -78,6 +80,26 @@ function TypingText({
 }
 
 export default function HeroNotebookSection() {
+  // Track the active carousel page so the edge fade follows it:
+  // page 1 → fade the right edge, page 2 → fade the left edge.
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [selectedPage, setSelectedPage] = useState(0);
+
+  useEffect(() => {
+    if (!carouselApi) return;
+    const onSelect = () => setSelectedPage(carouselApi.selectedScrollSnap());
+    onSelect();
+    carouselApi.on("select", onSelect);
+    carouselApi.on("reInit", onSelect);
+    return () => {
+      carouselApi.off("select", onSelect);
+      carouselApi.off("reInit", onSelect);
+    };
+  }, [carouselApi]);
+
+  const pageFadeMask =
+    selectedPage === 0 ? "mask-r-from-90%" : "mask-l-from-90%";
+
   return (
     <section className="section-padding-x pb-16 pt-32 md:pb-24 mx-auto flex justify-center relative mask-b-from-90% md:mask-b-from-50%">
       {/* Background image — shifted 120px left on mobile, centered on larger screens */}
@@ -149,8 +171,9 @@ export default function HeroNotebookSection() {
       {/* ── Mobile: swipeable pages (first page full, next page peeking) ──── */}
       <div className="relative z-20 w-full md:hidden select-none">
         <Carousel
+          setApi={setCarouselApi}
           opts={{ align: "start", containScroll: "trimSnaps" }}
-          className="w-full"
+          className={`w-full transition-[mask] duration-500 ${pageFadeMask}`}
         >
           <CarouselContent className="relative ml-0">
             {/* One continuous open book (the desktop two-page image) spanning
