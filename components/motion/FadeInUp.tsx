@@ -13,6 +13,8 @@ interface FadeInUpProps {
   delay?: number;
   duration?: number;
   className?: string;
+  /** Reveal on mount instead of on scroll-into-view (for first-paint content). */
+  playOnMount?: boolean;
 }
 
 export default function FadeInUp({
@@ -20,6 +22,7 @@ export default function FadeInUp({
   delay = 0,
   duration,
   className,
+  playOnMount = false,
 }: FadeInUpProps) {
   const shouldReduceMotion = useReducedMotion();
   const variants = shouldReduceMotion ? fadeInUpReduced : fadeInUp;
@@ -28,8 +31,9 @@ export default function FadeInUp({
     <motion.div
       variants={variants}
       initial="hidden"
-      whileInView="visible"
-      viewport={viewportOnce}
+      {...(playOnMount
+        ? { animate: "visible" }
+        : { whileInView: "visible", viewport: viewportOnce })}
       transition={{
         ...transitions.default,
         ...(duration ? { duration } : {}),
