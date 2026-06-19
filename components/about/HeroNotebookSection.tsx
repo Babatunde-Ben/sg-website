@@ -104,7 +104,7 @@ export default function HeroNotebookSection() {
     <section className="section-padding-x pb-16 pt-32 md:pb-24 mx-auto flex justify-center relative mask-b-from-90% md:mask-b-from-50%">
       {/* Background image — shifted 120px left on mobile, centered on larger screens */}
       <div
-        className="absolute inset-0 z-0 bg-cover bg-[position:calc(50%_-_-250px)_center] md:bg-center"
+        className="absolute inset-0 z-0 bg-cover bg-[position:calc(50%_-_-290px)_center] md:bg-center"
         style={{ backgroundImage: `url(${AboutBackgroundImage.src})` }}
       />
 
